@@ -88,6 +88,8 @@
                 </li>
                 <li><a href="news.html">Новости</a></li>
                 <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="feedback.html" class="feedback-link"><i class="fas fa-envelope-open-text"></i> Написать обращение</a></li>
+                <li><a href="sitemap.html">Карта сайта</a></li>
             </ul>
         </div>
     </nav>
@@ -248,9 +250,31 @@
                         <a href="#" class="social-link"><i class="fab fa-odnoklassniki"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
                     </div>
+                    <div class="contact-feedback">
+                        <a href="feedback.html" class="btn btn-accent">
+                            <i class="fas fa-pencil-alt"></i> Написать обращение
+                        </a>
+                    </div>
                 </div>
                 <div class="contacts-map">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2709.4075534499187!2d40.2042813!3d47.7176241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40e28f908e9d97c3%3A0x8d5a2abb56f8b71d!2z0L_RgNC-0YHQvy4g0J_QvtCx0LXQtNCwINCg0LXQstC-0LvRjtGG0LjQuCwgMTAwLCDQqNCw0YXRgtGLLCDQoNC-0YHRgtC-0LLRgdC60LDRjyDQvtCx0LsuLCAzNDY1MDA!5e0!3m2!1sru!2sru!4v1621523699987" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-banner">
+        <div class="container">
+            <div class="banner-content">
+                <div class="banner-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="banner-text">
+                    <h3>Остались вопросы или нужна помощь?</h3>
+                    <p>Воспользуйтесь нашей формой обратной связи. Мы ответим на ваше обращение в кратчайшие сроки.</p>
+                </div>
+                <div class="banner-action">
+                    <a href="feedback.html" class="btn btn-primary">Написать обращение</a>
                 </div>
             </div>
         </div>
@@ -302,11 +326,99 @@
                 </div>
                 <div class="footer-links">
                     <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="feedback.html">Обратная связь</a>
                     <a href="sitemap.html">Карта сайта</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <div class="modal-backdrop" id="feedback-modal">
+        <div class="modal feedback-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Форма обращений</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="success-message" class="success-message">
+                    <h3><i class="fas fa-check-circle"></i> Обращение успешно отправлено!</h3>
+                    <p>Ваше обращение зарегистрировано под номером <strong id="request-number">ЦСО-XXXX/2025</strong> от <span id="request-date">XX.XX.2025</span></p>
+                    <p>Мы рассмотрим ваше обращение в ближайшее время и свяжемся с вами по указанным контактным данным.</p>
+                    <p>Благодарим за обращение в МБУ «ЦСО №1» г. Шахты!</p>
+                </div>
+                
+                <div id="feedback-form" class="feedback-form">
+                    <form id="requestForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fullname">ФИО <span class="required-mark">*</span></label>
+                                <input type="text" id="fullname" name="fullname" required>
+                                <div class="error">Пожалуйста, укажите ваше ФИО</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Телефон <span class="required-mark">*</span></label>
+                                <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+                                <div class="error">Укажите корректный номер телефона</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email">
+                                <div class="error">Укажите корректный email адрес</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Адрес</label>
+                                <input type="text" id="address" name="address">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="request-type">Тип обращения <span class="required-mark">*</span></label>
+                                <select id="request-type" name="request-type" required>
+                                    <option value="">Выберите тип обращения</option>
+                                    <option value="question">Вопрос</option>
+                                    <option value="application">Заявление</option>
+                                    <option value="complaint">Жалоба</option>
+                                    <option value="suggestion">Предложение</option>
+                                    <option value="gratitude">Благодарность</option>
+                                </select>
+                                <div class="error">Выберите тип обращения</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Тема обращения <span class="required-mark">*</span></label>
+                                <input type="text" id="subject" name="subject" required>
+                                <div class="error">Укажите тему обращения</div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="message">Текст обращения <span class="required-mark">*</span></label>
+                                <textarea id="message" name="message" required></textarea>
+                                <div class="error">Введите текст обращения</div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="attach">Приложить файл</label>
+                                <input type="file" id="attach" name="attach">
+                                <div class="error">Максимальный размер файла - 5 МБ</div>
+                            </div>
+                            
+                            <div class="form-group checkbox full-width">
+                                <input type="checkbox" id="consent" name="consent" required>
+                                <label for="consent">Я даю согласие на обработку моих персональных данных в соответствии с <a href="privacy.html" target="_blank">Политикой конфиденциальности</a> <span class="required-mark">*</span></label>
+                                <div class="error">Необходимо дать согласие на обработку персональных данных</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-submit">
+                            <button type="submit" class="btn btn-primary">Отправить обращение</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

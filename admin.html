@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора - Центр социального обслуживания №1</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .admin-header {
+            background-color: var(--dark-color);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        .admin-header h1 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+        
+        .admin-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .admin-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            flex: 1;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .label {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .requests-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .requests-table th {
+            background-color: var(--light-color);
+            text-align: left;
+            padding: 15px;
+            font-weight: 500;
+            color: var(--text-color);
+            border-bottom: 2px solid #eee;
+        }
+        
+        .requests-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .requests-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .requests-table tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-new {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .status-processing {
+            background-color: #fff8e1;
+            color: #ff8f00;
+        }
+        
+        .status-completed {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+        
+        .btn-icon:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 5px;
+        }
+        
+        .pagination-item {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--border-radius);
+            background-color: white;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .pagination-item:hover,
+        .pagination-item.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-form input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            min-width: 300px;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-dropdown {
+            position: relative;
+        }
+        
+        .filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+        
+        .filter-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-width: 200px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .filter-menu.active {
+            display: block;
+        }
+        
+        .filter-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        
+        .filter-item:last-child {
+            border-bottom: none;
+        }
+        
+        .filter-item:hover {
+            background-color: var(--light-color);
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+        
+        .login-form h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+        }
+        
+        .form-submit {
+            text-align: center;
+        }
+        
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            margin: 0;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .request-details {
+            margin-bottom: 30px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .detail-label {
+            width: 150px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        .detail-value {
+            flex: 1;
+        }
+        
+        .request-message {
+            background-color: var(--light-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+        }
+        
+        .response-form textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="container">
+            <h1>Административная панель ЦСО №1</h1>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <div class="admin-top">
+            <h2>Обращения граждан</h2>
+            <div class="search-form">
+                <input type="text" placeholder="Поиск обращений...">
+                <button class="btn btn-primary">Найти</button>
+            </div>
+        </div>
+
+        <div class="admin-stats">
+            <div class="stat-card">
+                <div class="number">23</div>
+                <div class="label">Всего обращений</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">8</div>
+                <div class="label">Новые обращения</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">7</div>
+                <div class="label">В обработке</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">8</div>
+                <div class="label">Завершенные</div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="filter-dropdown">
+                <button class="filter-btn">
+                    Тип обращения <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-menu" id="type-filter">
+                    <div class="filter-item">Все типы</div>
+                    <div class="filter-item">Вопрос</div>
+                    <div class="filter-item">Заявление</div>
+                    <div class="filter-item">Жалоба</div>
+                    <div class="filter-item">Предложение</div>
+                    <div class="filter-item">Благодарность</div>
+                </div>
+            </div>
+            <div class="filter-dropdown">
+                <button class="filter-btn">
+                    Статус <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-menu" id="status-filter">
+                    <div class="filter-item">Все статусы</div>
+                    <div class="filter-item">Новое</div>
+                    <div class="filter-item">В обработке</div>
+                    <div class="filter-item">Завершено</div>
+                </div>
+            </div>
+            <div class="filter-dropdown">
+                <button class="filter-btn">
+                    Дата <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-menu" id="date-filter">
+                    <div class="filter-item">За все время</div>
+                    <div class="filter-item">За сегодня</div>
+                    <div class="filter-item">За неделю</div>
+                    <div class="filter-item">За месяц</div>
+                </div>
+            </div>
+        </div>
+
+        <table class="requests-table">
+            <thead>
+                <tr>
+                    <th>№ обращения</th>
+                    <th>Дата</th>
+                    <th>ФИО</th>
+                    <th>Тип</th>
+                    <th>Тема</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ЦСО-2574/2025</td>
+                    <td>08.03.2025</td>
+                    <td>Иванов Иван Иванович</td>
+                    <td>Вопрос</td>
+                    <td>Подключение услуги социального такси</td>
+                    <td><span class="status status-new">Новое</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="btn-icon view-request" data-id="2574"><i class="fas fa-eye"></i></a>
+                            <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="btn-icon"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ЦСО-2573/2025</td>
+                    <td>07.03.2025</td>
+                    <td>Петрова Мария Сергеевна</td>
+                    <td>Заявление</td>
+                    <td>Запрос на предоставление услуг на дому</td>
+                    <td><span class="status status-processing">В обработке</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="btn-icon view-request" data-id="2573"><i class="fas fa-eye"></i></a>
+                            <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="btn-icon"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ЦСО-2571/2025</td>
+                    <td>05.03.2025</td>
+                    <td>Смирнова Ольга Викторовна</td>
+                    <td>Благодарность</td>
+                    <td>Благодарность социальному работнику</td>
+                    <td><span class="status status-completed">Завершено</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="btn-icon view-request" data-id="2571"><i class="fas fa-eye"></i></a>
+                            <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="btn-icon"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ЦСО-2570/2025</td>
+                    <td>04.03.2025</td>
+                    <td>Козлов Дмитрий Александрович</td>
+                    <td>Жалоба</td>
+                    <td>Жалоба на качество обслуживания</td>
+                    <td><span class="status status-processing">В обработке</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="btn-icon view-request" data-id="2570"><i class="fas fa-eye"></i></a>
+                            <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="btn-icon"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ЦСО-2569/2025</td>
+                    <td>03.03.2025</td>
+                    <td>Николаева Анна Петровна</td>
+                    <td>Предложение</td>
+                    <td>Предложение по улучшению работы центра</td>
+                    <td><span class="status status-completed">Завершено</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="btn-icon view-request" data-id="2569"><i class="fas fa-eye"></i></a>
+                            <a href="#" class="btn-icon"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="btn-icon"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <a href="#" class="pagination-item"><i class="fas fa-chevron-left"></i></a>
+            <a href="#" class="pagination-item active">1</a>
+            <a href="#" class="pagination-item">2</a>
+            <a href="#" class="pagination-item">3</a>
+            <a href="#" class="pagination-item"><i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="request-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Обращение №ЦСО-2574/2025</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="request-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Дата обращения:</div>
+                        <div class="detail-value">08.03.2025, 14:23</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">ФИО:</div>
+                        <div class="detail-value">Иванов Иван Иванович</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Телефон:</div>
+                        <div class="detail-value">+7 (903) 123-45-67</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Email:</div>
+                        <div class="detail-value">ivanov@example.com</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Адрес:</div>
+                        <div class="detail-value">г. Шахты, ул. Советская, д. 15, кв. 42</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Тип обращения:</div>
+                        <div class="detail-value">Вопрос</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Тема:</div>
+                        <div class="detail-value">Подключение услуги социального такси</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Статус:</div>
+                        <div class="detail-value"><span class="status status-new">Новое</span></div>
+                    </div>
+                </div>
+
+                <h4>Сообщение:</h4>
+                <div class="request-message">
+                    <p>Здравствуйте! Хотел бы узнать о возможности получения услуги социального такси. Я инвалид 2 группы, передвигаюсь с тростью. Как я могу подключить данную услугу? Какие документы нужно предоставить? Заранее благодарю за ответ.</p>
+                </div>
+
+                <div class="response-form">
+                    <h4>Ответ на обращение:</h4>
+                    <textarea placeholder="Введите ответ на обращение..."></textarea>
+                    <div class="form-submit">
+                        <button class="btn btn-primary">Отправить ответ</button>
+                        <button class="btn btn-secondary">Изменить статус</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Функционал фильтров
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const filterMenus = document.querySelectorAll('.filter-menu');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.nextElementSibling.id;
+                    
+                    filterMenus.forEach(menu => {
+                        if (menu.id === targetId) {
+                            menu.classList.toggle('active');
+                        } else {
+                            menu.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            
+            // Закрытие меню фильтров при клике вне его
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.filter-dropdown')) {
+                    filterMenus.forEach(menu => {
+                        menu.classList.remove('active');
+                    });
+                }
+            });
+            
+            // Выбор элемента фильтра
+            const filterItems = document.querySelectorAll('.filter-item');
+            filterItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const filterMenu = this.closest('.filter-menu');
+                    const filterBtn = filterMenu.previousElementSibling;
+                    
+                    filterBtn.textContent = this.textContent + ' ';
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-chevron-down';
+                    filterBtn.appendChild(icon);
+                    
+                    filterMenu.classList.remove('active');
+                    
+                    // Здесь будет логика фильтрации данных
+                });
+            });
+            
+            // Модальное окно с деталями обращения
+            const viewButtons = document.querySelectorAll('.view-request');
+            const modal = document.getElementById('request-modal');
+            const closeButton = modal.querySelector('.modal-close');
+            
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modal.style.display = 'flex';
+                });
+            });
+            
+            closeButton.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            // Закрытие модального окна при клике вне его
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

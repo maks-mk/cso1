@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика конфиденциальности - Центр социального обслуживания №1</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .privacy-content {
+            padding: 60px 0;
+        }
+        
+        .privacy-section {
+            margin-bottom: 40px;
+        }
+        
+        .privacy-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-color);
+        }
+        
+        .privacy-section p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .privacy-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            list-style-type: disc;
+        }
+        
+        .privacy-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 5px;
+        }
+        
+        .privacy-list li:before {
+            content: none;
+        }
+        
+        .contact-info {
+            background-color: var(--light-color);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-top: 40px;
+        }
+        
+        .contact-info h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .last-updated {
+            font-style: italic;
+            color: var(--text-light);
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-color);
+        }
+        
+        .sitemap-sublist {
+            list-style-type: circle;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="Логотип ЦСО №1" class="logo">
+                <div class="logo-text">
+                    <h1>Муниципальное бюджетное учреждение города Шахты</h1>
+                    <p>Центр социального обслуживания граждан пожилого возраста и инвалидов №1</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="contacts-top">
+                    <div class="phone">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+78636223768">8 (8636) 22-37-68</a>
+                    </div>
+                    <div class="email">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a>
+                    </div>
+                </div>
+                <div class="accessibility-panel">
+                    <button id="font-size-increase" title="Увеличить размер шрифта"><i class="fas fa-text-height"></i></button>
+                    <button id="high-contrast" title="Высокий контраст"><i class="fas fa-adjust"></i></button>
+                    <button id="read-aloud" title="Читать вслух"><i class="fas fa-volume-up"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-list">
+                <li><a href="index.html">Главная</a></li>
+                <li class="dropdown">
+                    <a href="about.html">Об учреждении <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about/documents.html">Учредительные документы</a></li>
+                        <li><a href="about/info.html">Основные сведения</a></li>
+                        <li><a href="about/founder.html">Сведения об учредителе</a></li>
+                        <li><a href="about/licenses.html">Лицензии</a></li>
+                        <li><a href="about/schedule.html">Режим и график работы</a></li>
+                        <li><a href="about/reports.html">Отчеты о деятельности</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="structure.html">Структура и управление <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="structure/structure.html">Структура учреждения</a></li>
+                        <li><a href="structure/management.html">Административное управление</a></li>
+                        <li><a href="structure/staff.html">Руководители и специалисты</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="services.html">Услуги <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="services/types.html">Виды и формы</a></li>
+                        <li><a href="services/free.html">Бесплатные услуги</a></li>
+                        <li><a href="services/urgent.html">Срочные социальные услуги</a></li>
+                        <li><a href="services/paid.html">Платные услуги</a></li>
+                        <li><a href="services/conditions.html">Порядок и условия предоставления</a></li>
+                        <li><a href="services/tariffs.html">Утвержденные тарифы</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="programs.html">Программы <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="programs/territorial.html">Территориальная программа</a></li>
+                        <li><a href="programs/longterm-care.html">Система долговременного ухода</a></li>
+                        <li><a href="programs/university.html">Университет третьего возраста</a></li>
+                        <li><a href="programs/demography.html">Национальный проект «Демография»</a></li>
+                        <li><a href="programs/mobile.html">Мобильная бригада</a></li>
+                        <li><a href="programs/volunteer.html">Серебряное волонтерство</a></li>
+                    </ul>
+                </li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="sitemap.html">Карта сайта</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h2>Политика конфиденциальности</h2>
+                <p>Информация о том, как мы собираем, используем и защищаем ваши персональные данные</p>
+            </div>
+        </section>
+
+        <section class="privacy-content">
+            <div class="container">
+                <div class="privacy-section">
+                    <h3>1. Общие положения</h3>
+                    <p>Настоящая Политика конфиденциальности определяет, каким образом МБУ г. Шахты «Центр социального обслуживания граждан пожилого возраста и инвалидов №1» (далее — «ЦСО №1») собирает, использует, хранит и раскрывает информацию, полученную от пользователей на веб-сайте <strong>cso1-shakhty.ru</strong> (далее — «Сайт»). Эта политика конфиденциальности относится к Сайту и всем продуктам и услугам, предлагаемым ЦСО №1.</p>
+                    <p>Мы обрабатываем персональные данные в соответствии с Федеральным законом от 27.07.2006 N 152-ФЗ «О персональных данных», Федеральным законом от 28.12.2013 N 442-ФЗ «Об основах социального обслуживания граждан в Российской Федерации» и иными нормативно-правовыми актами Российской Федерации.</p>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>2. Персональные данные, которые мы собираем</h3>
+                    <p>Мы можем собирать следующие категории персональных данных:</p>
+                    <ul class="privacy-list">
+                        <li><strong>Идентификационная информация</strong> (имя, фамилия, отчество, дата рождения, данные документа, удостоверяющего личность)</li>
+                        <li><strong>Контактная информация</strong> (адрес, номер телефона, адрес электронной почты)</li>
+                        <li><strong>Медицинская информация</strong> (сведения о состоянии здоровья, инвалидности, нуждаемости в социальном обслуживании)</li>
+                        <li><strong>Социально-экономическая информация</strong> (сведения о доходах, социальном положении, условиях проживания)</li>
+                        <li><strong>Информация о посещении сайта</strong> (IP-адрес, информация о посещенных страницах, время доступа, тип браузера)</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>3. Цели сбора персональных данных</h3>
+                    <p>Мы собираем и используем персональные данные в следующих целях:</p>
+                    <ul class="privacy-list">
+                        <li>Предоставление социальных услуг и выполнение обязательств по договорам социального обслуживания</li>
+                        <li>Информирование о новых услугах, программах и мероприятиях ЦСО №1</li>
+                        <li>Обработка запросов, обращений и заявлений от пользователей</li>
+                        <li>Улучшение качества нашего сайта, услуг и клиентского обслуживания</li>
+                        <li>Ведение статистики и анализа эффективности деятельности ЦСО №1</li>
+                        <li>Выполнение требований законодательства РФ</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>4. Хранение и обработка персональных данных</h3>
+                    <p>Мы принимаем необходимые организационные и технические меры для защиты персональных данных от неправомерного или случайного доступа, уничтожения, изменения, блокирования, копирования, распространения, а также от иных неправомерных действий третьих лиц.</p>
+                    <p>Персональные данные хранятся в течение срока, необходимого для достижения целей обработки, или в течение срока, установленного законодательством РФ. По достижении целей обработки или в случае утраты необходимости в их достижении персональные данные уничтожаются или обезличиваются.</p>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>5. Передача персональных данных третьим лицам</h3>
+                    <p>Мы не продаем, не обмениваем и не передаем персональные данные пользователей третьим лицам без согласия субъекта персональных данных, за исключением случаев, когда это необходимо для:</p>
+                    <ul class="privacy-list">
+                        <li>Предоставления услуг, запрошенных пользователем</li>
+                        <li>Выполнения требований законодательства Российской Федерации</li>
+                        <li>Защиты от мошенничества или угроз безопасности</li>
+                        <li>Обработки данных нашими подрядчиками, которые берут на себя обязательства по обеспечению конфиденциальности персональных данных</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>6. Права пользователей</h3>
+                    <p>В соответствии с законодательством РФ о персональных данных, субъекты персональных данных имеют право:</p>
+                    <ul class="privacy-list">
+                        <li>Получать информацию, касающуюся обработки их персональных данных</li>
+                        <li>Требовать уточнения своих персональных данных, их блокирования или уничтожения</li>
+                        <li>Отозвать согласие на обработку персональных данных</li>
+                        <li>Обжаловать действия или бездействие оператора персональных данных</li>
+                        <li>Требовать прекращения обработки персональных данных и их уничтожения</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>7. Защита персональных данных</h3>
+                    <p>Мы применяем различные технические и организационные меры безопасности для защиты ваших персональных данных, включая:</p>
+                    <ul class="privacy-list">
+                        <li>Использование шифрования и безопасных протоколов передачи данных</li>
+                        <li>Ограничение доступа к персональным данным</li>
+                        <li>Регулярное обновление систем безопасности</li>
+                        <li>Проведение периодических проверок защищенности систем</li>
+                        <li>Обучение сотрудников правилам обработки персональных данных</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>8. Файлы cookie</h3>
+                    <p>Наш сайт использует файлы cookie для улучшения работы пользователей. Cookie — это небольшие файлы, которые сайт сохраняет на компьютере пользователя или мобильном устройстве. Они помогают сайту запоминать действия и предпочтения пользователя (логин, язык, размер шрифта и другие настройки) в течение определенного периода времени.</p>
+                    <p>Вы можете отключить использование файлов cookie в настройках вашего браузера, однако в этом случае некоторые функции сайта могут работать некорректно.</p>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>9. Изменения в политике конфиденциальности</h3>
+                    <p>ЦСО №1 имеет право обновлять настоящую политику конфиденциальности в любое время. Мы рекомендуем пользователям регулярно проверять эту страницу для получения актуальной информации о нашей политике защиты персональных данных.</p>
+                    <p>При внесении существенных изменений в политику конфиденциальности мы уведомим пользователей путем размещения соответствующего уведомления на сайте.</p>
+                </div>
+
+                <div class="contact-info">
+                    <h4>Контактная информация</h4>
+                    <p>Если у вас возникли вопросы или предложения относительно нашей политики конфиденциальности, пожалуйста, свяжитесь с нами:</p>
+                    <p><strong>МБУ г. Шахты «Центр социального обслуживания граждан пожилого возраста и инвалидов №1»</strong></p>
+                    <p>Адрес: 346500, г. Шахты Ростовской области, проспект Победа Революции, 100</p>
+                    <p>Телефон: <a href="tel:+78636223768">8 (8636) 22-37-68</a></p>
+                    <p>Email: <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a></p>
+                </div>
+
+                <p class="last-updated">Последнее обновление: 15 марта 2023 г.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>О центре</h3>
+                    <p>МБУ «Центр социального обслуживания граждан пожилого возраста и инвалидов №1» г. Шахты</p>
+                    <p>ОГРН: 1046150011684<br>ИНН: 6155054416</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Услуги</h3>
+                    <ul>
+                        <li><a href="services-home.html">Социальное обслуживание на дому</a></li>
+                        <li><a href="services-day.html">Отделение дневного пребывания</a></li>
+                        <li><a href="services-urgent.html">Срочные социальные услуги</a></li>
+                        <li><a href="services-rehab.html">Реабилитационные услуги</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Документы</h3>
+                    <ul>
+                        <li><a href="docs.html#statute">Устав организации</a></li>
+                        <li><a href="docs.html#licenses">Лицензии</a></li>
+                        <li><a href="docs.html#regulations">Нормативные документы</a></li>
+                        <li><a href="docs.html#reports">Отчеты о деятельности</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-contacts">
+                        <li><i class="fas fa-map-marker-alt"></i> 346500, г. Шахты Ростовской области, проспект Победа Революции, 100</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+78636223768">8 (8636) 22-37-68</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a></li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-odnoklassniki"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 МБУ «ЦСО №1» г. Шахты. Все права защищены.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy.html" class="active">Политика конфиденциальности</a>
+                    <a href="sitemap.html">Карта сайта</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

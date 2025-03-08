@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма обращений - Центр социального обслуживания №1</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .feedback-content {
+            padding: 60px 0;
+        }
+        
+        .feedback-section {
+            margin-bottom: 40px;
+        }
+        
+        .feedback-form {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: var(--font-family);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus, 
+        .form-group textarea:focus, 
+        .form-group select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.2);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .form-group.checkbox {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .form-group.checkbox input {
+            width: auto;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .form-group.checkbox label {
+            margin-bottom: 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-light);
+        }
+        
+        .form-group .error {
+            color: #e53935;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-group.has-error input, 
+        .form-group.has-error textarea, 
+        .form-group.has-error select {
+            border-color: #e53935;
+        }
+        
+        .form-group.has-error .error {
+            display: block;
+        }
+        
+        .form-submit {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .success-message {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            color: #2e7d32;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .required-mark {
+            color: #e53935;
+        }
+        
+        .feedback-info {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+        }
+        
+        .feedback-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feedback-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="Логотип ЦСО №1" class="logo">
+                <div class="logo-text">
+                    <h1>Муниципальное бюджетное учреждение города Шахты</h1>
+                    <p>Центр социального обслуживания граждан пожилого возраста и инвалидов №1</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="contacts-top">
+                    <div class="phone">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+78636223768">8 (8636) 22-37-68</a>
+                    </div>
+                    <div class="email">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a>
+                    </div>
+                </div>
+                <div class="accessibility-panel">
+                    <button id="font-size-increase" title="Увеличить размер шрифта"><i class="fas fa-text-height"></i></button>
+                    <button id="high-contrast" title="Высокий контраст"><i class="fas fa-adjust"></i></button>
+                    <button id="read-aloud" title="Читать вслух"><i class="fas fa-volume-up"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-list">
+                <li><a href="index.html">Главная</a></li>
+                <li class="dropdown">
+                    <a href="about.html">Об учреждении <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about/documents.html">Учредительные документы</a></li>
+                        <li><a href="about/info.html">Основные сведения</a></li>
+                        <li><a href="about/founder.html">Сведения об учредителе</a></li>
+                        <li><a href="about/licenses.html">Лицензии</a></li>
+                        <li><a href="about/schedule.html">Режим и график работы</a></li>
+                        <li><a href="about/reports.html">Отчеты о деятельности</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="structure.html">Структура и управление <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="structure/structure.html">Структура учреждения</a></li>
+                        <li><a href="structure/management.html">Административное управление</a></li>
+                        <li><a href="structure/staff.html">Руководители и специалисты</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="services.html">Услуги <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="services/types.html">Виды и формы</a></li>
+                        <li><a href="services/free.html">Бесплатные услуги</a></li>
+                        <li><a href="services/urgent.html">Срочные социальные услуги</a></li>
+                        <li><a href="services/paid.html">Платные услуги</a></li>
+                        <li><a href="services/conditions.html">Порядок и условия предоставления</a></li>
+                        <li><a href="services/tariffs.html">Утвержденные тарифы</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="programs.html">Программы <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="programs/territorial.html">Территориальная программа</a></li>
+                        <li><a href="programs/longterm-care.html">Система долговременного ухода</a></li>
+                        <li><a href="programs/university.html">Университет третьего возраста</a></li>
+                        <li><a href="programs/demography.html">Национальный проект «Демография»</a></li>
+                        <li><a href="programs/mobile.html">Мобильная бригада</a></li>
+                        <li><a href="programs/volunteer.html">Серебряное волонтерство</a></li>
+                    </ul>
+                </li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="sitemap.html">Карта сайта</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h2>Обращения граждан</h2>
+                <div class="breadcrumbs">
+                    <a href="index.html">Главная</a> / <span>Форма обращений</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="feedback-content">
+            <div class="container">
+                <div class="feedback-info">
+                    <h3>Уважаемые посетители!</h3>
+                    <p>Через данную форму вы можете направить обращение в МБУ г. Шахты «Центр социального обслуживания граждан пожилого возраста и инвалидов №1».</p>
+                    <p>Мы внимательно рассматриваем все обращения и предоставляем ответы в соответствии с Федеральным законом от 02.05.2006 № 59-ФЗ «О порядке рассмотрения обращений граждан Российской Федерации».</p>
+                    <p>Срок рассмотрения обращений - до 30 календарных дней со дня регистрации.</p>
+                    <p><strong>Обратите внимание:</strong> в случае необходимости получения неотложной помощи, пожалуйста, обращайтесь по телефону: <a href="tel:+78636223768">8 (8636) 22-37-68</a>.</p>
+                </div>
+
+                <div class="success-message" id="success-message">
+                    <h3>Обращение успешно отправлено!</h3>
+                    <p>Благодарим вас за обращение. Ваше сообщение зарегистрировано под номером <span id="request-number"></span> от <span id="request-date"></span>.</p>
+                    <p>Мы рассмотрим ваше обращение в установленные законодательством сроки и направим ответ по указанному вами адресу.</p>
+                </div>
+
+                <div class="feedback-form" id="feedback-form">
+                    <h3>Форма для обращений</h3>
+                    <p>Поля, отмеченные <span class="required-mark">*</span>, обязательны для заполнения</p>
+                    
+                    <form id="requestForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="lastName">Фамилия <span class="required-mark">*</span></label>
+                                <input type="text" id="lastName" name="lastName" required>
+                                <div class="error">Пожалуйста, укажите фамилию</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="firstName">Имя <span class="required-mark">*</span></label>
+                                <input type="text" id="firstName" name="firstName" required>
+                                <div class="error">Пожалуйста, укажите имя</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="middleName">Отчество</label>
+                                <input type="text" id="middleName" name="middleName">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Телефон <span class="required-mark">*</span></label>
+                                <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+                                <div class="error">Пожалуйста, укажите корректный номер телефона</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Электронная почта <span class="required-mark">*</span></label>
+                                <input type="email" id="email" name="email" required>
+                                <div class="error">Пожалуйста, укажите корректный адрес электронной почты</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Адрес проживания</label>
+                                <input type="text" id="address" name="address">
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="requestType">Тип обращения <span class="required-mark">*</span></label>
+                                <select id="requestType" name="requestType" required>
+                                    <option value="">Выберите тип обращения</option>
+                                    <option value="question">Вопрос</option>
+                                    <option value="application">Заявление</option>
+                                    <option value="complaint">Жалоба</option>
+                                    <option value="proposal">Предложение</option>
+                                    <option value="gratitude">Благодарность</option>
+                                </select>
+                                <div class="error">Пожалуйста, выберите тип обращения</div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="subject">Тема обращения <span class="required-mark">*</span></label>
+                                <input type="text" id="subject" name="subject" required>
+                                <div class="error">Пожалуйста, укажите тему обращения</div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="message">Текст обращения <span class="required-mark">*</span></label>
+                                <textarea id="message" name="message" required></textarea>
+                                <div class="error">Пожалуйста, введите текст обращения</div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="attach">Приложить файл</label>
+                                <input type="file" id="attach" name="attach">
+                                <div class="error">Максимальный размер файла - 5 МБ</div>
+                            </div>
+                            
+                            <div class="form-group checkbox full-width">
+                                <input type="checkbox" id="consent" name="consent" required>
+                                <label for="consent">Я даю согласие на обработку моих персональных данных в соответствии с <a href="privacy.html" target="_blank">Политикой конфиденциальности</a> <span class="required-mark">*</span></label>
+                                <div class="error">Необходимо дать согласие на обработку персональных данных</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-submit">
+                            <button type="submit" class="btn btn-primary">Отправить обращение</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>О центре</h3>
+                    <p>МБУ «Центр социального обслуживания граждан пожилого возраста и инвалидов №1» г. Шахты</p>
+                    <p>ОГРН: 1046150011684<br>ИНН: 6155054416</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Услуги</h3>
+                    <ul>
+                        <li><a href="services-home.html">Социальное обслуживание на дому</a></li>
+                        <li><a href="services-day.html">Отделение дневного пребывания</a></li>
+                        <li><a href="services-urgent.html">Срочные социальные услуги</a></li>
+                        <li><a href="services-rehab.html">Реабилитационные услуги</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Документы</h3>
+                    <ul>
+                        <li><a href="docs.html#statute">Устав организации</a></li>
+                        <li><a href="docs.html#licenses">Лицензии</a></li>
+                        <li><a href="docs.html#regulations">Нормативные документы</a></li>
+                        <li><a href="docs.html#reports">Отчеты о деятельности</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-contacts">
+                        <li><i class="fas fa-map-marker-alt"></i> 346500, г. Шахты Ростовской области, проспект Победа Революции, 100</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+78636223768">8 (8636) 22-37-68</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a></li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-odnoklassniki"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2025 МБУ «ЦСО №1» г. Шахты. Все права защищены.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="sitemap.html">Карта сайта</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('requestForm');
+            const formContainer = document.getElementById('feedback-form');
+            const successMessage = document.getElementById('success-message');
+            const requestNumber = document.getElementById('request-number');
+            const requestDate = document.getElementById('request-date');
+            
+            // Маска для телефона
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 0) {
+                    if (value[0] === '7' || value[0] === '8') {
+                        value = value.substring(1);
+                    }
+                    if (value.length > 0) {
+                        value = '7' + value;
+                    }
+                }
+                
+                let formattedValue = '';
+                if (value.length > 0) {
+                    formattedValue = '+' + value[0];
+                }
+                if (value.length > 1) {
+                    formattedValue += ' (' + value.substring(1, 4);
+                }
+                if (value.length > 4) {
+                    formattedValue += ') ' + value.substring(4, 7);
+                }
+                if (value.length > 7) {
+                    formattedValue += '-' + value.substring(7, 9);
+                }
+                if (value.length > 9) {
+                    formattedValue += '-' + value.substring(9, 11);
+                }
+                
+                e.target.value = formattedValue;
+            });
+            
+            // Валидация формы
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    const formGroup = field.closest('.form-group');
+                    formGroup.classList.remove('has-error');
+                    
+                    if (field.type === 'checkbox' && !field.checked) {
+                        formGroup.classList.add('has-error');
+                        isValid = false;
+                    } else if (field.value.trim() === '') {
+                        formGroup.classList.add('has-error');
+                        isValid = false;
+                    } else if (field.type === 'email' && !validateEmail(field.value)) {
+                        formGroup.classList.add('has-error');
+                        isValid = false;
+                    } else if (field.id === 'phone' && !validatePhone(field.value)) {
+                        formGroup.classList.add('has-error');
+                        isValid = false;
+                    }
+                });
+                
+                if (isValid) {
+                    // Генерируем случайный номер обращения
+                    const randomNum = Math.floor(Math.random() * 10000) + 1;
+                    requestNumber.textContent = 'ЦСО-' + randomNum + '/' + new Date().getFullYear();
+                    
+                    // Форматируем текущую дату
+                    const currentDate = new Date();
+                    const day = String(currentDate.getDate()).padStart(2, '0');
+                    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                    const year = currentDate.getFullYear();
+                    requestDate.textContent = day + '.' + month + '.' + year;
+                    
+                    // Показываем сообщение об успешной отправке
+                    formContainer.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    
+                    // Прокручиваем страницу к сообщению
+                    successMessage.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+            
+            // Функция валидации email
+            function validateEmail(email) {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+            
+            // Функция валидации телефона
+            function validatePhone(phone) {
+                // Проверяем, что в номере не менее 17 символов (включая +7, скобки, пробелы и дефисы)
+                return phone.length >= 17;
+            }
+        });
+    </script>
+</body>
+</html> 
