@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Центр социального обслуживания граждан пожилого возраста и инвалидов №1</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="Логотип ЦСО №1" class="logo">
+                <div class="logo-text">
+                    <h1>Муниципальное бюджетное учреждение города Шахты</h1>
+                    <p>Центр социального обслуживания граждан пожилого возраста и инвалидов №1</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="contacts-top">
+                    <div class="phone">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+78636223768">8 (8636) 22-37-68</a>
+                    </div>
+                    <div class="email">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a>
+                    </div>
+                </div>
+                <div class="accessibility-panel">
+                    <button id="font-size-increase" title="Увеличить размер шрифта"><i class="fas fa-text-height"></i></button>
+                    <button id="high-contrast" title="Высокий контраст"><i class="fas fa-adjust"></i></button>
+                    <button id="read-aloud" title="Читать вслух"><i class="fas fa-volume-up"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-list">
+                <li><a href="index.html" class="active">Главная</a></li>
+                <li class="dropdown">
+                    <a href="about.html">Об учреждении <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about/documents.html">Учредительные документы</a></li>
+                        <li><a href="about/info.html">Основные сведения</a></li>
+                        <li><a href="about/founder.html">Сведения об учредителе</a></li>
+                        <li><a href="about/licenses.html">Лицензии</a></li>
+                        <li><a href="about/schedule.html">Режим и график работы</a></li>
+                        <li><a href="about/reports.html">Отчеты о деятельности</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="structure.html">Структура и управление <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="structure/structure.html">Структура учреждения</a></li>
+                        <li><a href="structure/management.html">Административное управление</a></li>
+                        <li><a href="structure/staff.html">Руководители и специалисты</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="services.html">Услуги <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="services/types.html">Виды и формы</a></li>
+                        <li><a href="services/free.html">Бесплатные услуги</a></li>
+                        <li><a href="services/urgent.html">Срочные социальные услуги</a></li>
+                        <li><a href="services/paid.html">Платные услуги</a></li>
+                        <li><a href="services/conditions.html">Порядок и условия предоставления</a></li>
+                        <li><a href="services/tariffs.html">Утвержденные тарифы</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="programs.html">Программы <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="programs/territorial.html">Территориальная программа</a></li>
+                        <li><a href="programs/longterm-care.html">Система долговременного ухода</a></li>
+                        <li><a href="programs/university.html">Университет третьего возраста</a></li>
+                        <li><a href="programs/demography.html">Национальный проект «Демография»</a></li>
+                        <li><a href="programs/mobile.html">Мобильная бригада</a></li>
+                        <li><a href="programs/volunteer.html">Серебряное волонтерство</a></li>
+                    </ul>
+                </li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Забота о тех, кто нуждается в поддержке</h2>
+                <p>Мы предоставляем качественные социальные услуги для пожилых граждан и инвалидов города Шахты</p>
+                <div class="hero-buttons">
+                    <a href="services.html" class="btn btn-primary">Наши услуги</a>
+                    <a href="contacts.html" class="btn btn-secondary">Связаться с нами</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-preview">
+        <div class="container">
+            <h2 class="section-title">Наши услуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Социальное обслуживание на дому</h3>
+                    <p>Предоставление социальных услуг на дому гражданам, признанным нуждающимися в социальном обслуживании</p>
+                    <a href="services-home.html" class="btn-more">Подробнее</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Отделение дневного пребывания</h3>
+                    <p>Организация досуга, социально-медицинское обслуживание и питание в условиях дневного пребывания</p>
+                    <a href="services-day.html" class="btn-more">Подробнее</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Срочное социальное обслуживание</h3>
+                    <p>Оказание неотложной помощи разового характера гражданам, попавшим в трудную жизненную ситуацию</p>
+                    <a href="services-urgent.html" class="btn-more">Подробнее</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <h3>Социально-реабилитационные услуги</h3>
+                    <p>Комплексные мероприятия по восстановлению личностного и социального статуса</p>
+                    <a href="services-rehab.html" class="btn-more">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="news">
+        <div class="container">
+            <h2 class="section-title">Последние новости</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-date">5 марта 2025</div>
+                    <h3>Синий кит – самое большое млекопитающее в мире</h3>
+                    <p>19.02.2025 г. в МБУ г. Шахты «ЦСО №1» для получателей социальных услуг СРОДП состоялась лекция на тему: «Синий кит – самое большое млекопитающее в мире» (ко Всемирному дню защиты морских млекопитающих).</p>
+                    <a href="news/sinij-kit.html" class="btn-more">Подробнее</a>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">4 марта 2025</div>
+                    <h3>Всероссийская акция "УРА ПОБЕДЕ"</h3>
+                    <p>Центр социального обслуживания №1 присоединяется к Всероссийской акции "УРА ПОБЕДЕ", посвященной 80-летию Победы в Великой Отечественной войне. Приглашаем всех принять участие.</p>
+                    <a href="news/ura-pobede.html" class="btn-more">Подробнее</a>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">4 марта 2025</div>
+                    <h3>Система активного долголетия Александра Микулина</h3>
+                    <p>В МБУ г. Шахты «ЦСО №1» для получателей социальных услуг СРОДП состоялась лекция на тему: «Система активного долголетия академика Микулина», рассказывающая о методах поддержания здоровья в пожилом возрасте.</p>
+                    <a href="news/sistema-aktivnogo-dolgoletiya.html" class="btn-more">Подробнее</a>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">4 марта 2025</div>
+                    <h3>«Прощай, Масленица!»</h3>
+                    <p>28.02.2025 г. в актовом зале МБУ г. Шахты «ЦСО №1» для получателей социальных услуг СРОДП состоялся праздник «Прощай, Масленица». Костюмированное представление провела для людей «серебряного возраста» культорганизатор Елена Янполь.</p>
+                    <a href="news/proschay-maslenitsa.html" class="btn-more">Подробнее</a>
+                </div>
+            </div>
+            <div class="news-more">
+                <a href="news.html" class="btn btn-primary">Все новости</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-preview">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="cso1.jpg" alt="О нашем центре" class="circular-image">
+                </div>
+                <div class="about-text">
+                    <h2 class="section-title">О нашем центре</h2>
+                    <p>МБУ «Центр социального обслуживания граждан пожилого возраста и инвалидов №1» г. Шахты создан для оказания социальных услуг гражданам, признанным нуждающимися в социальном обслуживании.</p>
+                    <p>Наша миссия — повышение качества жизни пожилых граждан и инвалидов через предоставление высококачественных социальных услуг.</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">25+</span>
+                            <span class="stat-text">лет опыта</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">150+</span>
+                            <span class="stat-text">специалистов</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">5000+</span>
+                            <span class="stat-text">получателей услуг</span>
+                        </div>
+                    </div>
+                    <a href="about.html" class="btn btn-secondary">Подробнее о нас</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contacts-preview">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            <div class="contacts-grid">
+                <div class="contacts-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Адрес</h3>
+                            <p>346500, г. Шахты Ростовской области, проспект Победа Революции, 100</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Телефон</h3>
+                            <p><a href="tel:+78636223768">8 (8636) 22-37-68</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p><a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Режим работы</h3>
+                            <p>Пн-Пт: 9:00 - 18:00<br>Сб-Вс: выходной</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-odnoklassniki"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="contacts-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2709.4075534499187!2d40.2042813!3d47.7176241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40e28f908e9d97c3%3A0x8d5a2abb56f8b71d!2z0L_RgNC-0YHQvy4g0J_QvtCx0LXQtNCwINCg0LXQstC-0LvRjtGG0LjQuCwgMTAwLCDQqNCw0YXRgtGLLCDQoNC-0YHRgtC-0LLRgdC60LDRjyDQvtCx0LsuLCAzNDY1MDA!5e0!3m2!1sru!2sru!4v1621523699987" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>О центре</h3>
+                    <p>МБУ «Центр социального обслуживания граждан пожилого возраста и инвалидов №1» г. Шахты</p>
+                    <p>ОГРН: 1046150011684<br>ИНН: 6155054416</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Услуги</h3>
+                    <ul>
+                        <li><a href="services-home.html">Социальное обслуживание на дому</a></li>
+                        <li><a href="services-day.html">Отделение дневного пребывания</a></li>
+                        <li><a href="services-urgent.html">Срочные социальные услуги</a></li>
+                        <li><a href="services-rehab.html">Реабилитационные услуги</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Документы</h3>
+                    <ul>
+                        <li><a href="docs.html#statute">Устав организации</a></li>
+                        <li><a href="docs.html#licenses">Лицензии</a></li>
+                        <li><a href="docs.html#regulations">Нормативные документы</a></li>
+                        <li><a href="docs.html#reports">Отчеты о деятельности</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-contacts">
+                        <li><i class="fas fa-map-marker-alt"></i> 346500, г. Шахты Ростовской области, проспект Победа Революции, 100</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+78636223768">8 (8636) 22-37-68</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a></li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-odnoklassniki"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 МБУ «ЦСО №1» г. Шахты. Все права защищены.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="sitemap.html">Карта сайта</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

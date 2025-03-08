@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта сайта - Центр социального обслуживания №1</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .sitemap-container {
+            padding: 60px 0;
+        }
+        
+        .sitemap-section {
+            margin-bottom: 40px;
+        }
+        
+        .sitemap-title {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        .sitemap-list {
+            list-style: none;
+            margin-left: 20px;
+        }
+        
+        .sitemap-list li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .sitemap-list li:before {
+            content: '•';
+            color: var(--primary-color);
+            position: absolute;
+            left: -15px;
+        }
+        
+        .sitemap-list a {
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+        
+        .sitemap-list a:hover {
+            color: var(--primary-color);
+        }
+        
+        .sitemap-category {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .sitemap-sublist {
+            list-style: none;
+            margin-left: 30px;
+        }
+        
+        .sitemap-sublist li {
+            margin-bottom: 8px;
+        }
+        
+        .sitemap-sublist li:before {
+            content: '—';
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="Логотип ЦСО №1" class="logo">
+                <div class="logo-text">
+                    <h1>Муниципальное бюджетное учреждение города Шахты</h1>
+                    <p>Центр социального обслуживания граждан пожилого возраста и инвалидов №1</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="contacts-top">
+                    <div class="phone">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+78636223768">8 (8636) 22-37-68</a>
+                    </div>
+                    <div class="email">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a>
+                    </div>
+                </div>
+                <div class="accessibility-panel">
+                    <button id="font-size-increase" title="Увеличить размер шрифта"><i class="fas fa-text-height"></i></button>
+                    <button id="high-contrast" title="Высокий контраст"><i class="fas fa-adjust"></i></button>
+                    <button id="read-aloud" title="Читать вслух"><i class="fas fa-volume-up"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-list">
+                <li><a href="index.html">Главная</a></li>
+                <li class="dropdown">
+                    <a href="about.html">Об учреждении <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about/documents.html">Учредительные документы</a></li>
+                        <li><a href="about/info.html">Основные сведения</a></li>
+                        <li><a href="about/founder.html">Сведения об учредителе</a></li>
+                        <li><a href="about/licenses.html">Лицензии</a></li>
+                        <li><a href="about/schedule.html">Режим и график работы</a></li>
+                        <li><a href="about/reports.html">Отчеты о деятельности</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="structure.html">Структура и управление <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="structure/structure.html">Структура учреждения</a></li>
+                        <li><a href="structure/management.html">Административное управление</a></li>
+                        <li><a href="structure/staff.html">Руководители и специалисты</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="services.html">Услуги <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="services/types.html">Виды и формы</a></li>
+                        <li><a href="services/free.html">Бесплатные услуги</a></li>
+                        <li><a href="services/urgent.html">Срочные социальные услуги</a></li>
+                        <li><a href="services/paid.html">Платные услуги</a></li>
+                        <li><a href="services/conditions.html">Порядок и условия предоставления</a></li>
+                        <li><a href="services/tariffs.html">Утвержденные тарифы</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="programs.html">Программы <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="programs/territorial.html">Территориальная программа</a></li>
+                        <li><a href="programs/longterm-care.html">Система долговременного ухода</a></li>
+                        <li><a href="programs/university.html">Университет третьего возраста</a></li>
+                        <li><a href="programs/demography.html">Национальный проект «Демография»</a></li>
+                        <li><a href="programs/mobile.html">Мобильная бригада</a></li>
+                        <li><a href="programs/volunteer.html">Серебряное волонтерство</a></li>
+                    </ul>
+                </li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="sitemap.html" class="active">Карта сайта</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h2>Карта сайта</h2>
+                <p>Полная структура нашего сайта для удобной навигации</p>
+            </div>
+        </section>
+
+        <section class="sitemap-container">
+            <div class="container">
+                <div class="sitemap-section">
+                    <h3 class="sitemap-title">Главные разделы</h3>
+                    <ul class="sitemap-list">
+                        <li><a href="index.html">Главная</a></li>
+                        <li>
+                            <a href="about.html">Об учреждении</a>
+                            <ul class="sitemap-sublist">
+                                <li><a href="about/documents.html">Учредительные документы</a></li>
+                                <li><a href="about/info.html">Основные сведения</a></li>
+                                <li><a href="about/founder.html">Сведения об учредителе</a></li>
+                                <li><a href="about/licenses.html">Лицензии</a></li>
+                                <li><a href="about/schedule.html">Режим и график работы</a></li>
+                                <li><a href="about/reports.html">Отчеты о деятельности</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="structure.html">Структура и управление</a>
+                            <ul class="sitemap-sublist">
+                                <li><a href="structure/structure.html">Структура учреждения</a></li>
+                                <li><a href="structure/management.html">Административное управление</a></li>
+                                <li><a href="structure/staff.html">Руководители и специалисты</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="services.html">Услуги</a>
+                            <ul class="sitemap-sublist">
+                                <li><a href="services/types.html">Виды и формы</a></li>
+                                <li><a href="services/free.html">Бесплатные услуги</a></li>
+                                <li><a href="services/urgent.html">Срочные социальные услуги</a></li>
+                                <li><a href="services/paid.html">Платные услуги</a></li>
+                                <li><a href="services/conditions.html">Порядок и условия предоставления</a></li>
+                                <li><a href="services/tariffs.html">Утвержденные тарифы</a></li>
+                                <li><a href="services-home.html">Социальное обслуживание на дому</a></li>
+                                <li><a href="services-day.html">Отделение дневного пребывания</a></li>
+                                <li><a href="services-urgent.html">Срочное социальное обслуживание</a></li>
+                                <li><a href="services-rehab.html">Социально-реабилитационные услуги</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="programs.html">Программы</a>
+                            <ul class="sitemap-sublist">
+                                <li><a href="programs/territorial.html">Территориальная программа</a></li>
+                                <li><a href="programs/longterm-care.html">Система долговременного ухода</a></li>
+                                <li><a href="programs/university.html">Университет третьего возраста</a></li>
+                                <li><a href="programs/demography.html">Национальный проект «Демография»</a></li>
+                                <li><a href="programs/mobile.html">Мобильная бригада</a></li>
+                                <li><a href="programs/volunteer.html">Серебряное волонтерство</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="news.html">Новости</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+
+                <div class="sitemap-section">
+                    <h3 class="sitemap-title">Актуальные новости</h3>
+                    <ul class="sitemap-list">
+                        <li><a href="news/sinij-kit.html">Синий кит – самое большое млекопитающее в мире</a></li>
+                        <li><a href="news/ura-pobede.html">Всероссийская акция "УРА ПОБЕДЕ"</a></li>
+                        <li><a href="news/sistema-aktivnogo-dolgoletiya.html">Система активного долголетия Александра Микулина</a></li>
+                        <li><a href="news/proschay-maslenitsa.html">«Прощай, Масленица!»</a></li>
+                    </ul>
+                </div>
+
+                <div class="sitemap-section">
+                    <h3 class="sitemap-title">Дополнительная информация</h3>
+                    <ul class="sitemap-list">
+                        <li><a href="privacy.html">Политика конфиденциальности</a></li>
+                        <li><a href="accessibility.html">Доступность сайта</a></li>
+                        <li><a href="faq.html">Часто задаваемые вопросы</a></li>
+                        <li><a href="feedback.html">Обратная связь</a></li>
+                        <li><a href="sitemap.html">Карта сайта</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>О центре</h3>
+                    <p>Центр социального обслуживания граждан пожилого возраста и инвалидов №1 города Шахты</p>
+                    <p>ОГРН: 1046150011599</p>
+                    <p>ИНН: 6155054446</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-contacts">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>346500, г. Шахты Ростовской области, проспект Победа Революции, 100</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+78636223768">8 (8636) 22-37-68</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Информация</h3>
+                    <ul>
+                        <li><a href="about/documents.html">Документы</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="about/schedule.html">График работы</a></li>
+                        <li><a href="news.html">Новости</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Полезные ссылки</h3>
+                    <ul>
+                        <li><a href="https://mintrud.donland.ru/" target="_blank">Министерство труда и социального развития Ростовской области</a></li>
+                        <li><a href="https://www.gosuslugi.ru/" target="_blank">Портал Госуслуг</a></li>
+                        <li><a href="https://shakhty-gorod.ru/" target="_blank">Администрация г. Шахты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    © 2023 МБУ г. Шахты «ЦСО №1». Все права защищены.
+                </div>
+                <div class="footer-links">
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="sitemap.html">Карта сайта</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html> 
