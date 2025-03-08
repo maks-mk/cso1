@@ -654,8 +654,11 @@ section {
 }
 
 .about-image img {
-    /* Удаляем все стили отсюда, чтобы они не конфликтовали с circular-image */
-    /* Эти стили будут применяться к изображению, когда нет класса circular-image */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
 }
 
 /* Обеспечиваем постоянное отображение золотой рамки */
@@ -664,7 +667,7 @@ section {
     height: 100% !important;
     object-fit: cover !important;
     border-radius: 50% !important;
-    border: 5px solid #f5b658 !important; /* Золотая рамка всегда */
+    border: 5px solid #dfb87e !important; /* Золотая рамка всегда */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
 }
@@ -677,6 +680,10 @@ section {
 
 /* Убираем любые другие стили бордюра, которые могут конфликтовать */
 .about-image img:not(.circular-image) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
     border: none;
 }
 
@@ -1152,4 +1159,24 @@ section {
         font-size: 14px;
         padding: 18px 8px; /* Сохраняем увеличенный вертикальный отступ */
     }
+}
+
+/* Здесь должно было быть пустое правило, добавляем конкретные стили */
+.dropdown-menu li {
+    width: 100%;
+    margin: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Также проверяем и другие возможные пустые правила */
+.footer-contacts li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.footer-contacts i {
+    margin-right: 10px;
+    color: var(--primary-color);
+    min-width: 16px;
 } 
