@@ -766,6 +766,7 @@ section {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow);
+    color: var(--primary-color);
 }
 
 .social-links {
@@ -1618,4 +1619,113 @@ section {
     .department-item h4 {
         font-size: 16px;
     }
+}
+
+/* Добавляем стили для черно-белого режима */
+.grayscale-mode {
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+
+.grayscale-mode img,
+.grayscale-mode .logo,
+.grayscale-mode .hero {
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+
+/* Обеспечиваем хорошую читаемость текста в черно-белом режиме */
+.grayscale-mode p,
+.grayscale-mode h1,
+.grayscale-mode h2,
+.grayscale-mode h3,
+.grayscale-mode h4,
+.grayscale-mode h5,
+.grayscale-mode h6 {
+    color: #000;
+}
+
+.grayscale-mode a {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* Для обеспечения контраста в черно-белом режиме */
+.grayscale-mode .footer,
+.grayscale-mode .main-nav {
+    background: #ddd;
+}
+
+.grayscale-mode .footer p,
+.grayscale-mode .footer a,
+.grayscale-mode .footer h3 {
+    color: #000;
+}
+
+/* Исправление проблемы с контрастом в черно-белом режиме */
+.grayscale-mode .main-nav {
+    background: #ddd; /* Светло-серый фон */
+}
+
+.grayscale-mode .nav-list > li > a,
+.grayscale-mode .dropdown-menu a,
+.grayscale-mode .nav-left a {
+    color: #000 !important; /* Черный текст для меню */
+}
+
+.grayscale-mode .dropdown-menu {
+    background: #eee; /* Более светлый фон для выпадающего меню */
+    border: 1px solid #999; /* Добавляем рамку для лучшего восприятия */
+}
+
+.grayscale-mode .nav-list > li.active > a,
+.grayscale-mode .dropdown-menu a:hover,
+.grayscale-mode .dropdown-menu a.active {
+    background-color: #bbb; /* Темно-серый фон для активных элементов */
+    color: #000 !important; /* Черный текст на активных элементах */
+}
+
+/* Также исправим контраст для кнопок */
+.grayscale-mode .btn,
+.grayscale-mode .gold-icon {
+    background-color: #888 !important;
+    color: #fff !important;
+    border: 1px solid #555;
+}
+
+/* Исправим видимость иконок */
+.grayscale-mode .fas {
+    color: inherit;
+}
+
+/* Улучшим контраст в мобильном меню */
+.grayscale-mode .mobile-menu-toggle {
+    background-color: #888;
+    color: #fff;
+}
+
+/* Исправление цвета контактной информации в черно-белом режиме */
+.grayscale-mode .footer-contacts li span,
+.grayscale-mode .footer-contacts li a,
+.grayscale-mode .footer-column p,
+.grayscale-mode .footer-column ul li,
+.grayscale-mode .footer-column ul li a {
+    color: #000 !important;
+}
+
+/* Делаем иконки видимыми */
+.grayscale-mode .footer-contacts li i {
+    color: #000 !important;
+}
+
+/* Улучшаем контраст для всех текстовых элементов */
+.grayscale-mode .container span,
+.grayscale-mode .container p {
+    color: #000 !important;
+}
+
+/* Специально для адреса */
+.grayscale-mode .footer-contacts li:first-child span {
+    color: #000 !important;
+    font-weight: normal;
 } 

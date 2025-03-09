@@ -61,21 +61,13 @@ document.addEventListener('DOMContentLoaded', function() {
             highContrastEnabled = !highContrastEnabled;
             
             if (highContrastEnabled) {
-                document.documentElement.style.setProperty('--bg-color', '#ffffff');
-                document.documentElement.style.setProperty('--text-color', '#000000');
-                document.documentElement.style.setProperty('--text-light', '#000000');
-                document.documentElement.style.setProperty('--light-color', '#222');
-                document.documentElement.style.setProperty('--primary-color', '#ffcc00');
-                document.documentElement.style.setProperty('--secondary-color', '#ff9900');
+                // Применяем черно-белый режим
+                document.body.classList.add('grayscale-mode');
                 highContrast.style.backgroundColor = 'var(--primary-color)';
-                highContrast.style.color = 'black';
+                highContrast.style.color = 'white';
             } else {
-                document.documentElement.style.setProperty('--bg-color', '');
-                document.documentElement.style.setProperty('--text-color', '');
-                document.documentElement.style.setProperty('--text-light', '');
-                document.documentElement.style.setProperty('--light-color', '');
-                document.documentElement.style.setProperty('--primary-color', '');
-                document.documentElement.style.setProperty('--secondary-color', '');
+                // Возвращаем обычный цветной режим
+                document.body.classList.remove('grayscale-mode');
                 highContrast.style.backgroundColor = '';
                 highContrast.style.color = '';
             }
