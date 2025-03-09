@@ -1528,4 +1528,65 @@ section {
     .form-submit .btn-primary {
         width: 100%;
     }
+}
+
+/* Добавьте этот стиль в ваш CSS файл */
+.icon-only {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.icon-only:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+.icon-only i {
+    font-size: 18px;
+}
+
+/* Добавьте эти стили для новой структуры навигации */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-right {
+    margin-left: auto;
+}
+
+/* Стиль для золотой иконки обращения */
+.gold-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--primary-color); /* золотой цвет */
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.gold-icon:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+.gold-icon i {
+    font-size: 18px;
 } 

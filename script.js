@@ -53,9 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
             highContrastEnabled = !highContrastEnabled;
             
             if (highContrastEnabled) {
-                document.documentElement.style.setProperty('--bg-color', '#000');
-                document.documentElement.style.setProperty('--text-color', '#fff');
-                document.documentElement.style.setProperty('--text-light', '#ddd');
+                document.documentElement.style.setProperty('--bg-color', '#ffffff');
+                document.documentElement.style.setProperty('--text-color', '#000000');
+                document.documentElement.style.setProperty('--text-light', '#000000');
                 document.documentElement.style.setProperty('--light-color', '#222');
                 document.documentElement.style.setProperty('--primary-color', '#ffcc00');
                 document.documentElement.style.setProperty('--secondary-color', '#ff9900');
