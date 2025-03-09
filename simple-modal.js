@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', function () {
     // Создаем модальное окно только один раз
     createSimpleModal();
@@ -17,27 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Проверяем URL параметры
     if (window.location.search.includes('openModal=feedback')) {
         openFeedbackModal();
-=======
-// Простая и надежная версия модального окна обратной связи
-document.addEventListener('DOMContentLoaded', function() {
-    // Создаем модальное окно только один раз
-    createSimpleModal();
-    
-    // Находим все кнопки для открытия модального окна
-    const allOpenButtons = document.querySelectorAll('a[href="feedback.html"], .feedback-link, .banner-action .btn-primary, .contact-btn');
-    
-    // Добавляем обработчики клика
-    allOpenButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('simple-modal').style.display = 'flex';
-        });
-    });
-    
-    // Проверяем URL параметры
-    if (window.location.search.includes('openModal=feedback')) {
-        document.getElementById('simple-modal').style.display = 'flex';
->>>>>>> 86fd277919a071785878c582dc3ce99ba6022485
         history.replaceState({}, document.title, window.location.pathname);
     }
 });
@@ -48,22 +26,14 @@ function createSimpleModal() {
     if (document.getElementById('simple-modal')) {
         return;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 86fd277919a071785878c582dc3ce99ba6022485
     // Создаем элемент модального окна
     const modal = document.createElement('div');
     modal.id = 'simple-modal';
     modal.className = 'modal';
     modal.innerHTML = `
         <div class="modal-content">
-<<<<<<< HEAD
             <span class="close-modal">&times;</span>
-=======
-            <span class="close-modal" onclick="document.getElementById('simple-modal').style.display='none';">&times;</span>
->>>>>>> 86fd277919a071785878c582dc3ce99ba6022485
             <h2>Обратная связь</h2>
             <form id="simple-feedback-form">
                 <div class="form-group">
@@ -123,7 +93,6 @@ function createSimpleModal() {
             </form>
         </div>
     `;
-<<<<<<< HEAD
 
     // Добавляем окно в документ
     document.body.appendChild(modal);
@@ -175,56 +144,3 @@ function closeFeedbackModal() {
 if (!window.openFeedbackModal) {
     window.openFeedbackModal = openFeedbackModal;
 }
-=======
-    
-    // Добавляем окно в документ
-    document.body.appendChild(modal);
-    
-    // Добавляем обработчик закрытия при клике вне окна
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-    });
-    
-    // Добавляем обработчик для закрытия по ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.style.display === 'flex') {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-    });
-    
-    // Обработчик для кнопки закрытия
-    modal.querySelector('.close-modal').addEventListener('click', function() {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-    });
-    
-    // Добавляем обработчик отправки формы
-    const form = document.getElementById('simple-feedback-form');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Здесь можно добавить валидацию формы перед отправкой
-        
-        // Симуляция отправки данных
-        setTimeout(function() {
-            alert('Ваше обращение успешно отправлено! Мы свяжемся с вами в ближайшее время.');
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-            form.reset();
-        }, 500);
-    });
-    
-    // Блокировка прокрутки при открытии модального окна
-    const openModal = function() {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    };
-    
-    // Экспортируем функцию открытия модального окна
-    window.openFeedbackModal = openModal;
-} 
->>>>>>> 86fd277919a071785878c582dc3ce99ba6022485
