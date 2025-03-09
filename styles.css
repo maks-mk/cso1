@@ -1553,23 +1553,33 @@ section {
     font-size: 18px;
 }
 
-/* Добавьте эти стили для новой структуры навигации */
+/* Обновленные стили для центрирования меню */
 .nav-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .nav-left {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .nav-right {
-    margin-left: auto;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-/* Стиль для золотой иконки обращения */
 .gold-icon {
     width: 40px;
     height: 40px;
@@ -1577,16 +1587,12 @@ section {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: var(--primary-color); /* золотой цвет */
-    color: white;
+    background-color: #ffcc00; /* Явный золотой цвет */
+    color: #000000; /* Черный текст на золотом фоне */
     transition: all 0.3s ease;
 }
 
 .gold-icon:hover {
-    background-color: var(--secondary-color);
+    background-color: #ffaa00; /* Темнее при наведении */
     transform: scale(1.1);
-}
-
-.gold-icon i {
-    font-size: 18px;
 } 
