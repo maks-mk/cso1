@@ -10,17 +10,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Обработка выпадающих меню на мобильных устройствах
-    dropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector('a');
-        
-        if (window.innerWidth <= 768) {
+    // Улучшенная обработка выпадающих меню на мобильных устройствах
+    if (window.innerWidth <= 768) {
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
             link.addEventListener('click', function(e) {
-                e.preventDefault();
-                dropdown.classList.toggle('active');
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                    
+                    // Закрываем все другие открытые выпадающие меню
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown && otherDropdown.classList.contains('active')) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+                }
             });
-        }
-    });
+        });
+    }
 
     // Функционал панели доступности
     const fontSizeIncrease = document.getElementById('font-size-increase');
@@ -347,4 +355,43 @@ document.addEventListener('DOMContentLoaded', function() {
             return phone.length >= 17;
         }
     }
-}); 
+});
+
+// Добавьте этот код для обработки изменения размера окна
+window.addEventListener('resize', function() {
+    // Перепроверка ширины окна и обновление логики поведения меню
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    if (window.innerWidth <= 768) {
+        // Мобильная логика
+        dropdowns.forEach(setupMobileDropdown);
+    } else {
+        // Десктопная логика
+        dropdowns.forEach(dropdown => {
+            dropdown.classList.remove('active');
+        });
+    }
+});
+
+// Функция настройки выпадающего меню для мобильных устройств
+function setupMobileDropdown(dropdown) {
+    const link = dropdown.querySelector('a');
+    
+    // Удаляем старые обработчики, если они есть
+    const newLink = link.cloneNode(true);
+    link.parentNode.replaceChild(newLink, link);
+    
+    newLink.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+            e.preventDefault();
+            dropdown.classList.toggle('active');
+            
+            // Закрываем другие открытые меню
+            document.querySelectorAll('.dropdown.active').forEach(otherDropdown => {
+                if (otherDropdown !== dropdown) {
+                    otherDropdown.classList.remove('active');
+                }
+            });
+        }
+    });
+} 

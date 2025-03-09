@@ -288,6 +288,7 @@ a:hover {
     background: var(--gradient-primary);
     border-radius: 0 0 10px 10px;
     margin: 0 15px;
+    position: relative;
 }
 
 .nav-list {
@@ -919,77 +920,10 @@ section {
 }
 
 @media screen and (max-width: 768px) {
-    .mobile-menu-toggle {
-        display: block;
-    }
-    
-    .nav-list {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .nav-list.active {
-        display: flex;
-    }
-    
-    .dropdown-menu {
-        position: static;
-        box-shadow: none;
-        background-color: rgba(0, 0, 0, 0.1);
-        display: none;
-        width: 100%;
-    }
-    
-    .dropdown-menu a {
-        color: white;
-    }
-    
-    .dropdown.active .dropdown-menu {
-        display: block;
-    }
-    
-    .hero {
-        padding: 80px 0;
-        clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
-    }
-    
-    .hero h2 {
-        font-size: 36px;
-    }
-    
-    .service-card, .news-card, .stat-item {
-        transform: none !important;
-    }
-    
-    .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .copyright {
-        margin-bottom: 15px;
-    }
-    
-    .footer-links a {
-        margin: 0 10px;
-    }
-    
-    .logo-text h1 {
-        font-size: 15px;
-    }
-    
-    .logo-text p {
-        font-size: 16px;
-    }
-    
-    .about-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .about-image {
-        margin-bottom: 30px;
+    .gold-icon {
+        width: 35px;
+        height: 35px;
+        z-index: 1001; /* Убедитесь, что иконка находится над мобильным меню */
     }
 }
 
@@ -1595,4 +1529,93 @@ section {
 .gold-icon:hover {
     background-color: #ffaa00; /* Темнее при наведении */
     transform: scale(1.1);
+}
+
+/* Добавьте эти медиа-запросы для исправления мобильного отображения */
+@media (max-width: 768px) {
+    /* Исправление навигации */
+    .nav-container {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    
+    .nav-left {
+        width: 100%;
+        order: 2;
+    }
+    
+    .nav-list {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        padding-top: 10px;
+    }
+    
+    .nav-list.active {
+        display: flex;
+    }
+    
+    .nav-list li {
+        width: 100%;
+        margin: 0;
+    }
+    
+    .nav-list li a {
+        padding: 12px 15px;
+        width: 100%;
+        display: block;
+    }
+    
+    .nav-right {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+    }
+    
+    /* Улучшение бургер-меню */
+    .mobile-menu-toggle {
+        display: flex;
+        position: absolute;
+        left: 15px;
+        top: 10px;
+    }
+    
+    /* Изменение выпадающих меню */
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        display: none;
+        box-shadow: none;
+        background: #f5f5f5;
+    }
+    
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+    
+    /* Улучшение отображения структуры */
+    .structure-image {
+        width: 100%;
+        height: auto;
+    }
+    
+    .department-item {
+        padding: 15px;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .gold-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .structure-title {
+        font-size: 22px;
+    }
+    
+    .department-item h4 {
+        font-size: 16px;
+    }
 } 
