@@ -1,786 +1,908 @@
-# Инструкция по установке и настройке формы обратной связи
+# Полная инструкция по установке, настройке и использованию системы обратной связи
 
 ## Содержание
 
-1. [Обзор компонентов системы](#обзор-компонентов-системы)
-2. [Установка на Windows](#установка-на-windows)
-3. [Установка на Linux](#установка-на-linux)
-4. [Настройка формы обратной связи](#настройка-формы-обратной-связи)
-5. [Проверка и тестирование](#проверка-и-тестирование)
-6. [Администрирование запросов](#администрирование-запросов)
-7. [Диагностика проблем](#диагностика-проблем)
-8. [FAQ](#faq)
-9. [Структура проекта](#структура-проекта)
-
-## 1. Обзор компонентов системы
-
-Форма обратной связи включает следующие компоненты:
-
-- **Frontend**: HTML-форма с CSS-стилями и JavaScript для валидации и отправки данных
-- **Backend**: PHP-скрипт для обработки запросов формы
-- **Хранилище данных**: JSON-файл для хранения обращений
-- **Уведомления**: Отправка email-уведомлений о новых обращениях
-
-### Файлы системы
-
-- `index.html` - основная страница сайта с формой обратной связи
-- `styles.css` - стили для оформления формы
-- `simple-modal.js` - скрипт для работы модального окна и отправки формы
-- `process_form.php` - скрипт обработки формы на сервере
-- `requests.json` - файл для хранения обращений
-- `feedback.html` - отдельная страница с формой обратной связи
-- `script.js` - основной JavaScript-файл для всего сайта
-- `privacy.html` - страница с политикой конфиденциальности
-- `sitemap.html` - карта сайта
-- `structure.html` - структура учреждения
-- `admin.php` - панель администрирования для обращений
-
-[⬆️ Вернуться к содержанию](#содержание)
-
-## 2. Установка на Windows
-
-### 2.1. Установка веб-сервера
-
-#### Вариант 1: XAMPP
-
-1. Скачайте XAMPP с [официального сайта](https://www.apachefriends.org/ru/index.html)
-2. Запустите установщик и следуйте инструкциям мастера
-3. Выберите компоненты для установки (минимум Apache и PHP)
-4. После установки запустите XAMPP Control Panel
-5. Запустите Apache нажатием кнопки "Start"
-
-#### Вариант 2: OpenServer (для русскоязычных пользователей)
-
-1. Скачайте OpenServer с [официального сайта](https://ospanel.io/)
-2. Запустите установщик и следуйте инструкциям
-3. После установки запустите OpenServer
-4. В меню трея выберите "Запустить"
-
-### 2.2. Размещение файлов сайта
-
-1. Найдите директорию веб-сервера:
-   - XAMPP: `C:\xampp\htdocs\`
-   - OpenServer: `C:\OpenServer\domains\`
-
-2. Создайте папку для вашего сайта:
-   - XAMPP: `C:\xampp\htdocs\cso\`
-   - OpenServer: `C:\OpenServer\domains\cso\`
-
-3. Скопируйте все файлы сайта в созданную папку
-
-4. Создайте пустой файл `requests.json` в корне папки
-
-### 2.3. Настройка прав доступа
-
-1. Щелкните правой кнопкой мыши на файле `requests.json`
-2. Выберите "Свойства" → "Безопасность"
-3. Нажмите кнопку "Изменить" или "Редактировать"
-4. Добавьте пользователя IUSR (или IIS_IUSRS)
-5. Установите полные права для этого пользователя
-6. Нажмите "Применить" и "ОК"
-
-### 2.4. Проверка конфигурации PHP
-
-1. Откройте файл php.ini:
-   - XAMPP: `C:\xampp\php\php.ini`
-   - OpenServer: Через меню трея → "Настройки" → "PHP"
-
-2. Убедитесь, что включены следующие расширения:
-   ```
-   extension=fileinfo
-   extension=json
-   extension=mbstring
-   ```
-
-3. Убедитесь, что функция mail настроена:
-   ```
-   [mail function]
-   SMTP = localhost
-   smtp_port = 25
-   sendmail_from = cso-1@mail.ru
-   ```
-
-4. Перезапустите веб-сервер после изменений
-
-[⬆️ Вернуться к содержанию](#содержание)
-
-## 3. Установка на Linux
-
-### 3.1. Установка веб-сервера и PHP
-
-#### Ubuntu/Debian
-
-```bash
-# Обновление пакетов
-sudo apt update
-sudo apt upgrade -y
-
-# Установка Apache и PHP
-sudo apt install -y apache2 php php-json php-mbstring
-
-# Запуск и активация Apache
-sudo systemctl start apache2
-sudo systemctl enable apache2
-```
-
-#### CentOS/RHEL/Fedora
-
-```bash
-# Обновление пакетов
-sudo dnf update -y
-
-# Установка Apache и PHP
-sudo dnf install -y httpd php php-json php-mbstring
-
-# Запуск и активация Apache
-sudo systemctl start httpd
-sudo systemctl enable httpd
-
-# Настройка файрвола
-sudo firewall-cmd --permanent --add-service=http
-sudo firewall-cmd --reload
-```
-
-### 3.2. Размещение файлов сайта
-
-```bash
-# Создание директории для сайта
-sudo mkdir -p /var/www/html/cso
-
-# Копирование файлов сайта
-sudo cp -r /путь/к/файлам/сайта/* /var/www/html/cso/
-
-# Создание файла для хранения данных
-sudo touch /var/www/html/cso/requests.json
-```
-
-### 3.3. Настройка прав доступа
-
-```bash
-# Установка владельца файлов
-sudo chown -R www-data:www-data /var/www/html/cso/
-# или для CentOS/RHEL
-# sudo chown -R apache:apache /var/www/html/cso/
-
-# Установка прав доступа
-sudo find /var/www/html/cso/ -type d -exec chmod 755 {} \;
-sudo find /var/www/html/cso/ -type f -exec chmod 644 {} \;
-sudo chmod 766 /var/www/html/cso/requests.json
-```
-
-### 3.4. Настройка виртуального хоста (опционально)
-
-```apache
-# Создание файла конфигурации виртуального хоста
-sudo nano /etc/apache2/sites-available/cso.conf
-
-# Содержимое файла:
-<VirtualHost *:80>
-    ServerName cso.local
-    DocumentRoot /var/www/html/cso
-    
-    <Directory /var/www/html/cso>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    </Directory>
-    
-    ErrorLog ${APACHE_LOG_DIR}/cso_error.log
-    CustomLog ${APACHE_LOG_DIR}/cso_access.log combined
-</VirtualHost>
-
-# Активация виртуального хоста
-sudo a2ensite cso.conf
-sudo systemctl reload apache2
-```
-
-[⬆️ Вернуться к содержанию](#содержание)
-
-## 4. Настройка формы обратной связи
-
-### 4.1. Настройка обработчика формы
-
-Откройте файл `process_form.php` и настройте следующие параметры:
-
-```php
-// Настройка email для уведомлений
-$to = 'your-email@example.com'; // Замените на ваш email
-
-// Настройка отправителя
-$headers = "From: noreply@yoursite.com\r\n"; // Замените на ваш домен
-```
-
-### 4.2. Настройка путей в JavaScript
-
-Откройте файл `simple-modal.js` и убедитесь, что пути к обработчику формы указаны правильно:
-
-```javascript
-// Отправка данных на сервер
-fetch('process_form.php', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formObject)
-})
-```
-
-### 4.3. Настройка формы в HTML
-
-Убедитесь, что форма имеет правильные ID и атрибуты:
-
-```html
-<form id="feedback-form" method="post">
-    <!-- Поля формы -->
-</form>
-```
-
-[⬆️ Вернуться к содержанию](#содержание)
-
-## 5. Проверка и тестирование
-
-### 5.1. Доступ к сайту
-
-- **Windows**: 
-  - XAMPP: `http://localhost/cso/`
-  - OpenServer: `http://cso/` или `http://localhost/cso/`
-
-- **Linux**: 
-  - `http://ip-адрес-сервера/cso/`
-  - или `http://cso.local/` (если настроен виртуальный хост)
-
-### 5.2. Тестирование формы
-
-1. Откройте страницу с формой обратной связи
-2. Заполните все обязательные поля формы
-3. Нажмите кнопку "Отправить"
-4. Проверьте, что отображается сообщение об успешной отправке
-
-### 5.3. Проверка сохранения данных
-
-1. Проверьте, что в файле `requests.json` появилась новая запись
-2. Проверьте, что на указанный email пришло уведомление
-
-[⬆️ Вернуться к содержанию](#содержание)
-
-## 6. Администрирование запросов
-
-### 6.1. Создание простой админ-панели
-
-Создайте файл `admin.php` в корне вашего сайта:
-
-```php
-<?php
-// Базовая аутентификация
-if (!isset($_SERVER['PHP_AUTH_USER']) || 
-    $_SERVER['PHP_AUTH_USER'] != 'admin' || 
-    $_SERVER['PHP_AUTH_PW'] != 'YOUR_SECURE_PASSWORD') {
-    header('WWW-Authenticate: Basic realm="Admin Area"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'Требуется авторизация';
-    exit;
-}
-
-// Чтение запросов из файла
-$requests = [];
-if (file_exists('requests.json')) {
-    $content = file_get_contents('requests.json');
-    if ($content) {
-        $requests = json_decode($content, true) ?: [];
-        // Сортировка по дате (от новых к старым)
-        usort($requests, function($a, $b) {
-            return strtotime($b['created_at']) - strtotime($a['created_at']);
-        });
-    }
-}
-
-// Обработка изменения статуса, если отправлена форма
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'changeStatus') {
-    $id = $_POST['id'] ?? '';
-    $newStatus = $_POST['status'] ?? '';
-    
-    if ($id && $newStatus && file_exists('requests.json')) {
-        $updatedRequests = [];
-        foreach ($requests as $request) {
-            if ($request['id'] === $id) {
-                $request['status'] = $newStatus;
-            }
-            $updatedRequests[] = $request;
-        }
-        file_put_contents('requests.json', json_encode($updatedRequests, JSON_PRETTY_PRINT));
-        // Перезагрузка страницы для отображения обновлений
-        header('Location: ' . $_SERVER['PHP_SELF']);
-        exit;
-    }
-}
-?>
-
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Панель администратора | Обращения пользователей</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #2a5885;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #2a5885;
-            color: white;
-            font-weight: 500;
-        }
-        tr:hover {
-            background-color: #f9f9f9;
-        }
-        .status-new {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        .status-processing {
-            color: #f39c12;
-            font-weight: bold;
-        }
-        .status-completed {
-            color: #27ae60;
-            font-weight: bold;
-        }
-        .actions {
-            display: flex;
-            gap: 5px;
-        }
-        .btn {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .btn-processing {
-            background-color: #f39c12;
-            color: white;
-        }
-        .btn-complete {
-            background-color: #27ae60;
-            color: white;
-        }
-        .btn-reopen {
-            background-color: #3498db;
-            color: white;
-        }
-        .empty-list {
-            text-align: center;
-            padding: 30px;
-            color: #777;
-            font-style: italic;
-        }
-        .message-text {
-            max-width: 300px;
-            white-space: pre-wrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .filter-btn {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            background-color: #eee;
-        }
-        .filter-btn.active {
-            background-color: #2a5885;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <h1>Обращения пользователей</h1>
-    
-    <div class="filters">
-        <button class="filter-btn active" onclick="filterRequests('all')">Все</button>
-        <button class="filter-btn" onclick="filterRequests('new')">Новые</button>
-        <button class="filter-btn" onclick="filterRequests('processing')">В обработке</button>
-        <button class="filter-btn" onclick="filterRequests('completed')">Завершенные</button>
-    </div>
-    
-    <?php if (empty($requests)): ?>
-        <div class="empty-list">
-            <p>Нет обращений</p>
-        </div>
-    <?php else: ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>№</th>
-                    <th>Дата</th>
-                    <th>ФИО</th>
-                    <th>Контакты</th>
-                    <th>Тема</th>
-                    <th>Сообщение</th>
-                    <th>Статус</th>
-                    <th>Действия</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($requests as $request): ?>
-                <tr class="request-row" data-status="<?php echo htmlspecialchars($request['status']); ?>">
-                    <td><?php echo htmlspecialchars($request['number']); ?></td>
-                    <td><?php echo htmlspecialchars($request['date']); ?></td>
-                    <td><?php echo htmlspecialchars($request['fullname']); ?></td>
-                    <td>
-                        <div>Тел: <?php echo htmlspecialchars($request['phone']); ?></div>
-                        <?php if (!empty($request['email'])): ?>
-                        <div>Email: <?php echo htmlspecialchars($request['email']); ?></div>
-                        <?php endif; ?>
-                    </td>
-                    <td><?php echo htmlspecialchars($request['topic'] ?? 'Не указана'); ?></td>
-                    <td>
-                        <div class="message-text"><?php echo htmlspecialchars($request['message']); ?></div>
-                    </td>
-                    <td>
-                        <span class="status-<?php echo $request['status']; ?>">
-                            <?php
-                                switch ($request['status']) {
-                                    case 'new': echo 'Новое'; break;
-                                    case 'processing': echo 'В обработке'; break;
-                                    case 'completed': echo 'Завершено'; break;
-                                    default: echo 'Новое';
-                                }
-                            ?>
-                        </span>
-                    </td>
-                    <td>
-                        <div class="actions">
-                            <form method="post">
-                                <input type="hidden" name="action" value="changeStatus">
-                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($request['id']); ?>">
-                                
-                                <?php if ($request['status'] === 'new'): ?>
-                                    <button type="submit" name="status" value="processing" class="btn btn-processing">Принять в работу</button>
-                                <?php endif; ?>
-                                
-                                <?php if ($request['status'] === 'new' || $request['status'] === 'processing'): ?>
-                                    <button type="submit" name="status" value="completed" class="btn btn-complete">Завершить</button>
-                                <?php endif; ?>
-                                
-                                <?php if ($request['status'] === 'completed'): ?>
-                                    <button type="submit" name="status" value="new" class="btn btn-reopen">Переоткрыть</button>
-                                <?php endif; ?>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
-    
-    <script>
-        function filterRequests(status) {
-            // Обновить активную кнопку фильтра
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Фильтрация строк таблицы
-            const rows = document.querySelectorAll('.request-row');
-            rows.forEach(row => {
-                if (status === 'all' || row.dataset.status === status) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
-    </script>
-</body>
-</html>
-
-[⬆️ Вернуться к содержанию](#содержание)
-
-## 7. Диагностика проблем
-
-### 7.1. Права доступа
-
-**Проблема**: Данные не сохраняются в `requests.json`
-
-**Решение**:
-- **Windows**: Проверьте права доступа для пользователя IUSR или IIS_IUSRS
-- **Linux**: Проверьте права для пользователя www-data или apache
-
-Команда для проверки прав:
-```bash
-ls -la /var/www/html/cso/requests.json
-```
-
-При необходимости исправьте:
-```bash
-sudo chmod 766 /var/www/html/cso/requests.json
-sudo chown www-data:www-data /var/www/html/cso/requests.json
-```
-
-### 7.2. Отладка PHP
-
-**Проблема**: Форма отправляется, но данные не сохраняются
-
-**Решение**:
-1. Включите отображение ошибок PHP в `php.ini`:
-   ```
-   display_errors = On
-   error_reporting = E_ALL
+1. [Обзор системы](#1-обзор-системы)
+2. [Установка необходимого ПО](#2-установка-необходимого-по)
+3. [Пошаговая установка](#3-пошаговая-установка)
+4. [Настройка компонентов](#4-настройка-компонентов)
+5. [Безопасность](#5-безопасность)
+6. [Использование административной панели](#6-использование-административной-панели)
+7. [Диагностика и устранение проблем](#7-диагностика-и-устранение-проблем)
+8. [Расширение функциональности](#8-расширение-функциональности)
+9. [Техническая документация](#9-техническая-документация)
+
+## 1. Обзор системы
+
+### 1.1 Назначение и возможности
+
+Система обратной связи предназначена для:
+- Приема и обработки обращений посетителей сайта
+- Хранения и категоризации обращений
+- Управления статусами обращений
+- Уведомления администраторов о новых обращениях
+- Ведения истории коммуникаций с заявителями
+
+### 1.2 Системные требования
+
+**Минимальные требования:**
+- PHP 7.4 или выше
+- Веб-сервер Apache/Nginx
+- Права на запись в директорию сайта
+- Доступ к отправке email (функция mail() или SMTP)
+
+**Рекомендуемые требования:**
+- PHP 8.0 или выше
+- Веб-сервер с поддержкой HTTPS
+- База данных MySQL (опционально)
+- Настроенный SMTP-сервер для надежной отправки email
+
+### 1.3 Компоненты системы
+
+Система состоит из следующих компонентов:
+1. **Форма обратной связи** (HTML + JavaScript)
+2. **Обработчик формы** (process_form.php)
+3. **Административная панель** (admin.php)
+4. **Хранилище данных** (requests.json или БД)
+5. **Дополнительные скрипты** (защита, логирование и т.д.)
+
+## 2. Установка необходимого ПО
+
+### 2.1 Установка на Windows
+
+#### 2.1.1 Установка с помощью XAMPP (рекомендуется)
+
+XAMPP - это готовый пакет, включающий Apache, MySQL, PHP и другие необходимые компоненты.
+
+1. **Скачайте XAMPP:**
+   - Перейдите на официальный сайт: https://www.apachefriends.org/download.html
+   - Загрузите последнюю версию для Windows (рекомендуется PHP 8.x)
+
+2. **Установите XAMPP:**
+   - Запустите скачанный установщик
+   - Следуйте инструкциям мастера установки
+   - Рекомендуется оставить все компоненты, отмеченные по умолчанию
+   - Стандартная директория установки: `C:\xampp`
+
+3. **Запустите XAMPP Control Panel:**
+   - Запустите XAMPP Control Panel через меню Пуск или иконку на рабочем столе
+   - Нажмите кнопки "Start" для модулей Apache и MySQL
+   - Убедитесь, что в консоли отображается сообщение об успешном запуске
+
+4. **Проверьте установку:**
+   - Откройте в браузере адрес: http://localhost/
+   - Вы должны увидеть стартовую страницу XAMPP
+   - Перейдите по ссылке phpinfo() или http://localhost/dashboard/phpinfo.php, чтобы проверить установленную версию PHP
+
+5. **Настройте PHP:**
+   - Откройте файл `C:\xampp\php\php.ini` в текстовом редакторе
+   - Убедитесь, что следующие расширения включены (раскомментированы, без точки с запятой в начале строки):
+     ```
+     extension=curl
+     extension=fileinfo
+     extension=gd
+     extension=mbstring
+     extension=exif
+     extension=mysqli
+     extension=openssl
+     extension=pdo_mysql
+     ```
+   - Для настройки отправки email найдите и измените параметры:
+     ```
+     [mail function]
+     SMTP=smtp.вашпочта.ru
+     smtp_port=25
+     sendmail_from=noreply@вашдомен.ru
+     ```
+   - Сохраните файл и перезапустите Apache через XAMPP Control Panel
+
+#### 2.1.2 Установка с помощью OpenServer (альтернатива)
+
+1. **Скачайте OpenServer:**
+   - Перейдите на официальный сайт: https://ospanel.io/
+   - Загрузите последнюю версию (Basic или Premium)
+
+2. **Установите OpenServer:**
+   - Распакуйте архив в удобное место на диске
+   - Запустите файл Open Server.exe
+   - Выполните первоначальную настройку, следуя инструкциям
+
+3. **Настройте компоненты:**
+   - В трее найдите иконку OpenServer и щелкните правой кнопкой мыши
+   - Выберите "Настройки"
+   - На вкладке "Компоненты" выберите:
+     - Apache 2.4 или выше
+     - PHP 7.4 или 8.x
+     - MySQL 5.7 или 8.0
+   - Перезапустите сервер после изменения настроек
+
+### 2.2 Установка на Linux
+
+#### 2.2.1 Ubuntu/Debian
+
+1. **Обновите систему:**
+   ```bash
+   sudo apt update
+   sudo apt upgrade
    ```
 
-2. Добавьте код для отладки в `process_form.php`:
+2. **Установите Apache:**
+   ```bash
+   sudo apt install apache2
+   sudo systemctl start apache2
+   sudo systemctl enable apache2
+   ```
+
+3. **Установите PHP и необходимые модули:**
+   ```bash
+   # Для Ubuntu 20.04/22.04 или Debian 11
+   sudo apt install php php-common php-fpm php-json php-pdo php-mysql php-zip php-gd php-mbstring php-curl php-xml php-pear php-bcmath libapache2-mod-php
+   
+   # Проверьте установленную версию
+   php -v
+   ```
+
+4. **Настройте PHP:**
+   ```bash
+   sudo nano /etc/php/8.*/apache2/php.ini
+   ```
+   
+   Внесите следующие изменения:
+   ```
+   upload_max_filesize = 32M
+   post_max_size = 48M
+   memory_limit = 256M
+   max_execution_time = 600
+   max_input_vars = 3000
+   date.timezone = 'Europe/Moscow'
+   ```
+   
+   Сохраните файл и перезапустите Apache:
+   ```bash
+   sudo systemctl restart apache2
+   ```
+
+5. **Установите и настройте MySQL (опционально):**
+   ```bash
+   sudo apt install mysql-server
+   sudo systemctl start mysql
+   sudo systemctl enable mysql
+   
+   # Запустите скрипт безопасной настройки MySQL
+   sudo mysql_secure_installation
+   ```
+
+6. **Настройте виртуальный хост Apache:**
+   ```bash
+   sudo nano /etc/apache2/sites-available/your-site.conf
+   ```
+   
+   Содержимое файла:
+   ```apache
+   <VirtualHost *:80>
+       ServerName your-domain.com
+       ServerAlias www.your-domain.com
+       DocumentRoot /var/www/html/your-site
+       
+       <Directory /var/www/html/your-site>
+           Options Indexes FollowSymLinks
+           AllowOverride All
+           Require all granted
+       </Directory>
+       
+       ErrorLog ${APACHE_LOG_DIR}/your-site-error.log
+       CustomLog ${APACHE_LOG_DIR}/your-site-access.log combined
+   </VirtualHost>
+   ```
+   
+   Активируйте сайт и перезапустите Apache:
+   ```bash
+   sudo a2ensite your-site.conf
+   sudo a2enmod rewrite
+   sudo systemctl restart apache2
+   ```
+
+#### 2.2.2 CentOS/RHEL/Fedora
+
+1. **Обновите систему:**
+   ```bash
+   sudo dnf update
+   ```
+
+2. **Установите Apache:**
+   ```bash
+   sudo dnf install httpd
+   sudo systemctl start httpd
+   sudo systemctl enable httpd
+   ```
+
+3. **Установите PHP и необходимые модули:**
+   ```bash
+   # Для CentOS 8/RHEL 8/Fedora
+   sudo dnf install php php-cli php-common php-fpm php-json php-pdo php-mysql php-zip php-gd php-mbstring php-curl php-xml php-pear php-bcmath
+   
+   # Проверьте установленную версию
+   php -v
+   ```
+
+4. **Настройте PHP:**
+   ```bash
+   sudo nano /etc/php.ini
+   ```
+   
+   Внесите те же изменения, что и для Ubuntu/Debian.
+
+5. **Установите и настройте MySQL (опционально):**
+   ```bash
+   sudo dnf install mysql-server
+   sudo systemctl start mysqld
+   sudo systemctl enable mysqld
+   
+   # Запустите скрипт безопасной настройки
+   sudo mysql_secure_installation
+   ```
+
+### 2.3 Настройка отправки email
+
+#### 2.3.1 Настройка PHP mail() на Windows (XAMPP)
+
+1. **Установите и настройте локальный SMTP-сервер:**
+   - Установите программу "Fake Sendmail for Windows" или аналогичную
+   - Скачайте архив sendmail с https://github.com/glob3/sendmail
+   - Распакуйте архив в директорию C:\xampp\sendmail
+   
+2. **Настройте sendmail:**
+   - Откройте файл C:\xampp\sendmail\sendmail.ini
+   - Настройте параметры:
+     ```
+     [sendmail]
+     smtp_server=smtp.gmail.com
+     smtp_port=587
+     error_logfile=error.log
+     debug_logfile=debug.log
+     auth_username=your-email@gmail.com
+     auth_password=your-password-or-app-password
+     force_sender=your-email@gmail.com
+     ```
+
+3. **Обновите настройки PHP:**
+   - Откройте файл C:\xampp\php\php.ini
+   - Найдите секцию [mail function] и измените на:
+     ```
+     [mail function]
+     sendmail_path="C:\xampp\sendmail\sendmail.exe -t"
+     ```
+
+#### 2.3.2 Настройка PHP mail() на Linux
+
+1. **Установите Postfix:**
+   ```bash
+   # Ubuntu/Debian
+   sudo apt install postfix
+   
+   # CentOS/RHEL
+   sudo dnf install postfix
+   ```
+   
+   При установке выберите "Internet Site" и введите имя домена.
+
+2. **Настройте Postfix:**
+   ```bash
+   sudo nano /etc/postfix/main.cf
+   ```
+   
+   Проверьте и обновите следующие параметры:
+   ```
+   myhostname = your-domain.com
+   mydomain = your-domain.com
+   myorigin = $mydomain
+   inet_interfaces = all
+   mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+   ```
+   
+   Перезапустите Postfix:
+   ```bash
+   sudo systemctl restart postfix
+   ```
+
+3. **Тестирование отправки email:**
+   ```bash
+   echo "This is a test." | mail -s "Test Email" recipient@example.com
+   ```
+
+#### 2.4 Проверка и устранение проблем с установкой
+
+1. **Проверка работы Apache:**
+   - Windows: откройте в браузере http://localhost/
+   - Linux: `sudo systemctl status apache2` или `sudo systemctl status httpd`
+
+2. **Проверка PHP:**
+   - Создайте файл info.php с содержимым:
+     ```php
+     <?php phpinfo(); ?>
+     ```
+   - Откройте http://localhost/info.php
+
+3. **Проверка SMTP:**
+   - Создайте файл test_mail.php с содержимым:
+     ```php
+     <?php
+     $to = "получатель@example.com";
+     $subject = "Тестовое письмо";
+     $message = "Это тестовое письмо от PHP mail()";
+     $headers = "From: отправитель@example.com\r\n";
+     
+     if(mail($to, $subject, $message, $headers)) {
+         echo "Письмо отправлено успешно";
+     } else {
+         echo "Ошибка при отправке письма";
+     }
+     ?>
+     ```
+   - Запустите скрипт через браузер
+
+## 3. Пошаговая установка
+
+### 3.1 Загрузка файлов на сервер
+
+1. **Подготовка файлов:**
+   - Убедитесь, что у вас есть все необходимые файлы системы
+   - Проверьте структуру директорий согласно [разделу 9.1](#91-структура-файлов)
+
+2. **Загрузка на сервер:**
+   - Используйте FTP-клиент (например, FileZilla) или панель управления хостингом
+   - Загрузите все файлы в корневую директорию сайта или поддиректорию
+   - Сохраните структуру директорий при загрузке
+
+### 3.2 Настройка прав доступа
+
+**На Windows-сервере:**
+1. Убедитесь, что учетная запись, под которой работает веб-сервер (IUSR или IIS_IUSRS), имеет права на чтение всех файлов
+2. Предоставьте права на запись для следующих файлов и папок:
+   - requests.json
+   - errors.log
+   - Директория, где хранятся эти файлы
+
+**На Linux-сервере:**
+```bash
+# Установка базовых прав доступа
+find /путь/к/проекту -type f -exec chmod 644 {} \;
+find /путь/к/проекту -type d -exec chmod 755 {} \;
+
+# Установка прав на запись для специальных файлов
+chmod 664 /путь/к/проекту/requests.json
+chmod 664 /путь/к/проекту/errors.log
+touch /путь/к/проекту/flood_protection.json
+chmod 664 /путь/к/проекту/flood_protection.json
+
+# Установка владельца файлов (www-data - стандартный пользователь Apache)
+# Замените на нужного пользователя, если используется другой (например, nginx)
+chown -R www-data:www-data /путь/к/проекту
+```
+
+### 3.3 Создание необходимых файлов
+
+1. **Создание пустого JSON-хранилища:**
+   Если файл requests.json не существует, создайте его с базовой структурой:
+   ```bash
+   echo "[]" > requests.json
+   ```
+
+2. **Создание файла журнала ошибок:**
+   ```bash
+   touch errors.log
+   ```
+
+3. **Создание .htaccess для защиты данных:**
+   Файл .htaccess будет создан автоматически при первом запуске process_form.php, но вы можете создать его вручную:
+   ```apache
+   # Защита файла данных
+   <Files requests.json>
+       Order Allow,Deny
+       Deny from all
+   </Files>
+   
+   # Запрет доступа к скрытым файлам
+   <FilesMatch "^\.">
+       Order Allow,Deny
+       Deny from all
+   </FilesMatch>
+   
+   # Защита административной панели
+   <Files admin.php>
+       AuthType Basic
+       AuthName "Restricted Area"
+       AuthUserFile /полный/путь/к/.htpasswd
+       Require valid-user
+   </Files>
+   ```
+
+## 4. Настройка компонентов
+
+### 4.1 Настройка обработчика формы (process_form.php)
+
+1. **Настройка получателя уведомлений:**
+   Откройте файл process_form.php и найдите строку:
    ```php
-   // В начало файла
-   error_log('Получен запрос: ' . file_get_contents('php://input'));
-   
-   // Перед записью в файл
-   error_log('Попытка записи данных: ' . json_encode($db_entry));
-   
-   // После записи
-   error_log('Результат записи: ' . ($result ? 'успешно' : 'ошибка'));
+   $to = 'cso-1@mail.ru'; // Замените на реальный адрес
+   ```
+   Измените адрес электронной почты на тот, куда должны приходить уведомления о новых обращениях.
+
+2. **Настройка отправителя:**
+   ```php
+   $headers = "From: noreply@cso1.ru\r\n"; // Укажите ваш домен
+   ```
+   Замените домен на актуальный для вашего сайта.
+
+3. **Настройка способа хранения данных:**
+   По умолчанию система использует JSON-файл для хранения данных. При необходимости можно изменить:
+   ```php
+   define('STORAGE_TYPE', 'json'); // Варианты: 'json', 'mysql', 'sqlite'
+   ```
+   При выборе 'mysql' также потребуется настроить параметры подключения к базе данных в функции saveToMysql().
+
+### 4.2 Настройка формы обратной связи (simple-modal.js)
+
+1. **Подключение скрипта к страницам:**
+   Убедитесь, что на всех страницах, где должна быть доступна форма обратной связи, подключены необходимые скрипты:
+   ```html
+   <script src="script.js"></script>
+   <script src="simple-modal.js"></script>
    ```
 
-### 7.3. Проверка логов
+2. **Добавление кнопок вызова формы:**
+   На страницах сайта разместите элементы, которые будут открывать форму:
+   ```html
+   <!-- Вариант 1: Ссылка -->
+   <a href="#" class="feedback-link">Написать обращение</a>
+   
+   <!-- Вариант 2: Кнопка -->
+   <button class="contact-btn" onclick="openFeedbackModal()">Связаться с нами</button>
+   
+   <!-- Вариант 3: Баннер с кнопкой -->
+   <div class="banner-action">
+       <button class="btn-primary">Оставить заявку</button>
+   </div>
+   ```
 
-**Проблема**: Скрытые ошибки в работе скриптов
+3. **Настройка полей формы:**
+   При необходимости измените HTML-структуру формы в функции createSimpleModal() файла simple-modal.js.
 
-**Решение**: Проверьте логи ошибок сервера:
+### 4.3 Настройка административной панели (admin.php)
 
-- **Windows**:
-  - XAMPP: `C:\xampp\apache\logs\error.log`
-  - OpenServer: `C:\OpenServer\userdata\logs\apache_error.log`
+1. **Изменение учетных данных:**
+   Откройте файл admin.php и найдите следующие строки в начале файла:
+   ```php
+   // Конфигурация
+   $admin_username = 'cso1admin';
+   $admin_password = password_hash('надежный_пароль_2024', PASSWORD_DEFAULT);
+   ```
+   
+   Замените 'cso1admin' на желаемое имя пользователя и 'надежный_пароль_2024' на надежный пароль.
+   
+   **Важно:** После изменения пароля с использованием password_hash(), сохраните его, так как восстановить исходный пароль из хеша невозможно.
 
-- **Linux**:
-  - Ubuntu/Debian: `/var/log/apache2/error.log`
-  - CentOS/RHEL: `/var/log/httpd/error_log`
+2. **Настройка файла хранения данных:**
+   ```php
+   $requests_file = 'requests.json';
+   ```
+   При необходимости укажите другой путь к файлу с данными.
 
-[⬆️ Вернуться к содержанию](#содержание)
+## 5. Безопасность
 
-## 8. FAQ
+### 5.1 Защита данных обращений
 
-### 8.1. Как изменить внешний вид формы?
+1. **Проверка .htaccess:**
+   Убедитесь, что файл .htaccess содержит правила, запрещающие прямой доступ к requests.json:
+   ```apache
+   <Files requests.json>
+       Order Allow,Deny
+       Deny from all
+   </Files>
+   ```
 
-Для изменения стилей формы отредактируйте файл `styles.css`. Основные классы CSS для модального окна и формы:
-- `.modal` - контейнер модального окна
-- `.modal-header` - заголовок модального окна
-- `.modal-body` - содержимое модального окна
-- `.form-group` - группа поля формы
-- `.btn-primary` - кнопка отправки формы
+2. **Защита от XSS-атак:**
+   В process_form.php уже реализована базовая защита с использованием htmlspecialchars():
+   ```php
+   $data['fullname'] = htmlspecialchars($data['fullname']);
+   $data['message'] = htmlspecialchars($data['message']);
+   ```
 
-### 8.2. Как настроить хранение в базе данных вместо JSON-файла?
+3. **Логирование ошибок:**
+   Система автоматически логирует ошибки в файл errors.log. Регулярно проверяйте этот файл на наличие подозрительных активностей.
 
-Для хранения обращений в MySQL/MariaDB:
+### 5.2 Защита административной панели
 
-1. Создайте базу данных и таблицу:
-```sql
-CREATE DATABASE cso_feedback;
-USE cso_feedback;
+1. **Базовая HTTP-аутентификация:**
+   Создайте файл .htpasswd для дополнительной защиты:
+   ```bash
+   # На Linux/Mac
+   htpasswd -c .htpasswd имя_пользователя
+   
+   # На Windows (через openssl)
+   echo имя_пользователя:$(openssl passwd -apr1 пароль) > .htpasswd
+   ```
+   
+   Или используйте онлайн-генератор .htpasswd.
 
-CREATE TABLE requests (
-    id VARCHAR(36) PRIMARY KEY,
-    number VARCHAR(20) NOT NULL,
-    date VARCHAR(20) NOT NULL,
-    fullname VARCHAR(255) NOT NULL,
-    phone VARCHAR(20) NOT NULL,
-    email VARCHAR(255),
-    topic VARCHAR(255),
-    message TEXT NOT NULL,
-    status VARCHAR(20) DEFAULT 'new',
-    created_at DATETIME NOT NULL
-);
-```
+2. **Настройка защиты через PHP:**
+   В admin.php уже реализована защита с использованием сессий и проверки пароля. Убедитесь, что используется надежный пароль.
 
-2. Измените код в `process_form.php` для сохранения в БД:
-```php
-// Подключение к БД
-$mysqli = new mysqli('localhost', 'username', 'password', 'cso_feedback');
-if ($mysqli->connect_error) {
-    error_log('Database connection error: ' . $mysqli->connect_error);
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Внутренняя ошибка сервера']);
-    exit;
-}
+3. **HTTPS-соединение:**
+   Настоятельно рекомендуется настроить HTTPS для защиты передаваемых данных, особенно для административной панели.
 
-// Подготовка и выполнение запроса
-$stmt = $mysqli->prepare("INSERT INTO requests (id, number, date, fullname, phone, email, topic, message, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'new', NOW())");
-$stmt->bind_param('ssssssss', $db_entry['id'], $db_entry['number'], $db_entry['date'], $db_entry['fullname'], $db_entry['phone'], $db_entry['email'], $db_entry['topic'], $db_entry['message']);
-$stmt->execute();
-$stmt->close();
-$mysqli->close();
-```
+### 5.3 Защита от атак
 
-### 8.3. Как изменить темы обращений?
+1. **CSRF-защита:**
+   Система уже включает CSRF-защиту с использованием токенов:
+   ```php
+   // Проверка CSRF-токена
+   if (!isset($data['csrf_token']) || $data['csrf_token'] !== $_SESSION['csrf_token']) {
+       http_response_code(403);
+       echo json_encode(['success' => false, 'message' => 'Недействительный токен безопасности']);
+       exit;
+   }
+   ```
 
-Отредактируйте список опций в HTML-коде формы в файле `index.html`:
+2. **Защита от флуд-атак:**
+   В process_form.php реализована защита от многократных запросов:
+   ```php
+   // Проверка на флуд
+   $client_ip = $_SERVER['REMOTE_ADDR'];
+   if (checkFloodAttempt($client_ip)) {
+       http_response_code(429); // Too Many Requests
+       echo json_encode([...]);
+       exit;
+   }
+   ```
+   
+   Вы можете настроить параметры в функции checkFloodAttempt():
+   ```php
+   $max_requests = 10; // Максимальное количество запросов
+   $time_window = 3600; // Временное окно в секундах (1 час)
+   ```
 
-```html
-<select id="request-type" name="request-type" required>
-    <option value="">Выберите тип обращения</option>
-    <option value="question">Вопрос</option>
-    <!-- Добавьте или измените опции здесь -->
-    <option value="custom-type">Ваш тип обращения</option>
-</select>
-```
+## 6. Использование административной панели
 
-### 8.4. Как добавить дополнительные поля в форму?
+### 6.1 Вход в панель администратора
 
-1. Добавьте HTML-код нового поля в форму (`index.html`):
-```html
-<div class="form-group">
-    <label for="new-field">Новое поле</label>
-    <input type="text" id="new-field" name="new-field">
-</div>
-```
+1. Откройте в браузере URL: `http://ваш-сайт/admin.php`
+2. Введите имя пользователя и пароль, указанные при настройке
+3. Если настроена HTTP-аутентификация, вам может потребоваться дважды вводить учетные данные
 
-2. Обновите серверный скрипт для обработки нового поля (`process_form.php`):
-```php
-$db_entry = [
-    // Существующие поля...
-    'new_field' => $data['new-field'] ?? '',
-    // Другие поля...
-];
-```
+### 6.2 Интерфейс администратора
 
-### 8.5. Как настроить автоответ отправителю?
+После успешного входа вы увидите интерфейс административной панели:
 
-Добавьте код отправки автоответа в `process_form.php`:
+1. **Левая панель:** Список всех обращений с возможностью фильтрации
+2. **Правая панель:** Детальная информация о выбранном обращении
+3. **Верхняя панель:** Меню и кнопка выхода из системы
 
-```php
-// Если указан email отправителя, отправляем ему автоответ
-if (!empty($data['email'])) {
-    $autoReplySubject = "Ваше обращение №{$requestNumber} получено";
-    $autoReplyMessage = "Здравствуйте, {$data['fullname']}!\n\n";
-    $autoReplyMessage .= "Ваше обращение №{$requestNumber} от {$requestDate} получено и зарегистрировано.\n";
-    $autoReplyMessage .= "Мы рассмотрим его в ближайшее время и свяжемся с Вами при необходимости.\n\n";
-    $autoReplyMessage .= "С уважением,\nКоманда ЦСО №1 г. Шахты";
-    
-    $autoReplyHeaders = "From: cso-1@mail.ru\r\n";
-    $autoReplyHeaders .= "Reply-To: cso-1@mail.ru\r\n";
-    $autoReplyHeaders .= "X-Mailer: PHP/" . phpversion();
-    
-    mail($data['email'], $autoReplySubject, $autoReplyMessage, $autoReplyHeaders);
-}
-```
+### 6.3 Работа с обращениями
 
-[⬆️ Вернуться к содержанию](#содержание)
+1. **Просмотр списка обращений:**
+   - Все обращения отображаются в левой части экрана
+   - Используйте выпадающее меню "Фильтр" для отображения обращений по статусу:
+     - Все обращения
+     - Новые
+     - В обработке
+     - Завершенные
+     - Отклоненные
 
-## 9. Структура проекта
+2. **Просмотр деталей обращения:**
+   - Щелкните на обращении в списке для просмотра полной информации
+   - В правой панели отобразятся все данные обращения, включая:
+     - ФИО заявителя
+     - Контактные данные
+     - Текст обращения
+     - История статусов
+     - Комментарии
 
-### 9.1. Основные файлы проекта
+3. **Изменение статуса обращения:**
+   - В детальном просмотре обращения выберите новый статус из выпадающего меню
+   - Нажмите кнопку "Обновить статус"
+   - Статус обращения будет изменен, и в историю добавится запись об изменении
+
+4. **Добавление комментариев:**
+   - В нижней части детального просмотра найдите форму для комментариев
+   - Введите текст комментария в текстовое поле
+   - Нажмите "Добавить комментарий"
+   - Комментарий будет добавлен к обращению с указанием времени и автора
+
+### 6.4 Управление пользователями (для администраторов)
+
+В текущей версии система поддерживает только одного администратора, настроенного в файле admin.php. Для добавления дополнительных пользователей требуется модификация кода.
+
+## 7. Диагностика и устранение проблем
+
+### 7.1 Проблемы с отправкой формы
+
+**Симптом: Форма не отправляется или появляется ошибка**
+
+1. **Проверьте консоль браузера:**
+   - Откройте инструменты разработчика (F12 в большинстве браузеров)
+   - Перейдите на вкладку "Console"
+   - Проверьте наличие ошибок JavaScript
+
+2. **Проверьте права доступа:**
+   - Убедитесь, что файл requests.json существует и доступен для записи
+   - Проверьте права доступа к директории
+
+3. **Проверьте CSRF-токен:**
+   - Убедитесь, что сессии PHP работают корректно
+   - Проверьте, что токен генерируется и передается в форме
+
+### 7.2 Проблемы с email-уведомлениями
+
+**Симптом: Уведомления не приходят на почту**
+
+1. **Проверьте настройки PHP:**
+   - Функция mail() должна быть включена в php.ini
+   - Проверьте настройки SMTP в php.ini или используйте альтернативный SMTP-клиент
+
+2. **Проверьте журнал ошибок:**
+   - Просмотрите файл errors.log на наличие ошибок, связанных с отправкой email
+
+3. **Проверьте адрес получателя:**
+   - Убедитесь, что адрес email, указанный в $to, корректен
+   - Проверьте, не попадают ли письма в спам
+
+### 7.3 Проблемы с административной панелью
+
+**Симптом: Невозможно войти в админ-панель**
+
+1. **Проверьте учетные данные:**
+   - Убедитесь, что используете правильное имя пользователя и пароль
+   - Если пароль был изменен с использованием password_hash(), восстановить его нельзя - создайте новый
+
+2. **Проверьте сессии PHP:**
+   - Убедитесь, что сессии PHP работают корректно
+   - Проверьте настройки сессий в php.ini
+
+3. **Проверьте .htaccess и .htpasswd:**
+   - Если используется HTTP-аутентификация, проверьте корректность файлов
+   - Убедитесь, что пути к .htpasswd в .htaccess указаны правильно
+
+### 7.4 Общие проблемы и решения
+
+1. **Ошибка 500 Internal Server Error:**
+   - Проверьте журнал ошибок веб-сервера (error.log)
+   - Проверьте синтаксис PHP-файлов
+   - Временно включите отображение ошибок PHP:
+     ```php
+     ini_set('display_errors', 1);
+     ini_set('display_startup_errors', 1);
+     error_reporting(E_ALL);
+     ```
+
+2. **Ошибка 403 Forbidden:**
+   - Проверьте права доступа к файлам и директориям
+   - Проверьте настройки .htaccess
+
+3. **Система не работает на мобильных устройствах:**
+   - Убедитесь, что CSS-стили учитывают мобильные устройства
+   - Проверьте JavaScript на совместимость с мобильными браузерами
+
+## 8. Расширение функциональности
+
+### 8.1 Переход на базу данных MySQL
+
+Для перехода на MySQL:
+
+1. **Создайте базу данных и таблицу:**
+   ```sql
+   CREATE DATABASE feedback_db;
+   USE feedback_db;
+   
+   CREATE TABLE requests (
+       id VARCHAR(32) PRIMARY KEY,
+       number VARCHAR(20) NOT NULL,
+       date VARCHAR(10) NOT NULL,
+       fullname VARCHAR(255) NOT NULL,
+       phone VARCHAR(20) NOT NULL,
+       email VARCHAR(255),
+       address TEXT,
+       topic VARCHAR(255),
+       request_type VARCHAR(50),
+       message TEXT NOT NULL,
+       status VARCHAR(20) NOT NULL DEFAULT 'new',
+       created_at DATETIME NOT NULL,
+       updated_at DATETIME
+   );
+   
+   CREATE TABLE comments (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       request_id VARCHAR(32) NOT NULL,
+       text TEXT NOT NULL,
+       user VARCHAR(50) NOT NULL,
+       time DATETIME NOT NULL,
+       FOREIGN KEY (request_id) REFERENCES requests(id)
+   );
+   ```
+
+2. **Настройте параметры подключения в process_form.php:**
+   ```php
+   // Измените константу типа хранилища
+   define('STORAGE_TYPE', 'mysql');
+   
+   // Обновите параметры в функции saveToMysql()
+   function saveToMysql($data) {
+       $host = 'localhost';
+       $db = 'feedback_db';
+       $user = 'db_user'; // Замените на ваше имя пользователя
+       $pass = 'db_password'; // Замените на ваш пароль
+       
+       // Остальной код функции
+   }
+   ```
+
+3. **Обновите admin.php для работы с MySQL:**
+   Потребуется модифицировать функции loadRequests(), saveRequests(), updateRequestStatus() и addComment() для работы с базой данных.
+
+### 8.2 Интеграция с внешними сервисами
+
+1. **Интеграция с Telegram:**
+   Добавьте отправку уведомлений в Telegram-бот:
+   ```php
+   function sendTelegramNotification($message) {
+       $botToken = 'YOUR_BOT_TOKEN';
+       $chatId = 'YOUR_CHAT_ID';
+       $url = "https://api.telegram.org/bot{$botToken}/sendMessage";
+       
+       $data = [
+           'chat_id' => $chatId,
+           'text' => $message,
+           'parse_mode' => 'HTML'
+       ];
+       
+       $options = [
+           'http' => [
+               'method' => 'POST',
+               'header' => 'Content-Type: application/x-www-form-urlencoded',
+               'content' => http_build_query($data)
+           ]
+       ];
+       
+       $context = stream_context_create($options);
+       $result = file_get_contents($url, false, $context);
+       
+       return $result;
+   }
+   ```
+
+2. **Интеграция с SMS-сервисами:**
+   Добавьте отправку SMS-уведомлений через API-сервисы (например, Twilio, SMSAero и т.д.).
+
+### 8.3 Расширение административных возможностей
+
+1. **Добавление статистики:**
+   Создайте dashboard с графиками и статистикой по обращениям.
+
+2. **Экспорт данных:**
+   Добавьте функцию экспорта обращений в Excel/CSV:
+   ```php
+   function exportToCsv($requests) {
+       header('Content-Type: text/csv; charset=utf-8');
+       header('Content-Disposition: attachment; filename=requests.csv');
+       
+       $output = fopen('php://output', 'w');
+       
+       // Заголовки CSV
+       fputcsv($output, ['Номер', 'Дата', 'ФИО', 'Телефон', 'Email', 'Сообщение', 'Статус']);
+       
+       foreach ($requests as $request) {
+           fputcsv($output, [
+               $request['number'],
+               $request['date'],
+               $request['fullname'],
+               $request['phone'],
+               $request['email'] ?? '',
+               $request['message'],
+               $request['status']
+           ]);
+       }
+       
+       fclose($output);
+       exit;
+   }
+   ```
+
+## 9. Техническая документация
+
+### 9.1 Структура файлов
 
 ```
 project/
-├── index.html             # Главная страница сайта с информацией о центре
-├── feedback.html          # Страница с формой обратной связи
-├── privacy.html           # Страница с политикой конфиденциальности
-├── sitemap.html           # Карта сайта со всеми разделами
-├── structure.html         # Страница со структурой организации
-├── documents.html         # Учредительные документы
-├── schedule.html          # График работы
-├── services.html          # Услуги центра
-├── about.html             # Страница об учреждении
-├── news.html              # Новости центра
-├── contacts.html          # Контактная информация
-│
-├── css/
-│   └── styles.css         # Основные стили сайта
-│
-├── js/
-│   ├── script.js          # Основной JavaScript для сайта
-│   └── simple-modal.js    # Скрипт для обработки форм
-│
-├── images/
-│   ├── logo.png           # Логотип организации
-│   └── ...                # Другие изображения
-│
-├── backend/
-│   ├── process_form.php   # Обработчик формы обратной связи
-│   ├── requests.json      # Файл для хранения обращений
-│   ├── admin.php          # Панель администрирования обращений
-│   └── .htaccess          # Настройки доступа к файлам
-│
-└── docs/
-    └── instr.md           # Инструкция по установке и настройке
+├── index.html                 # Главная страница сайта
+├── structure.html             # Страница структуры организации
+├── privacy.html               # Политика конфиденциальности
+├── sitemap.html               # Карта сайта
+├── styles.css                 # Основные стили сайта
+├── script.js                  # Основной JavaScript
+├── simple-modal.js            # Скрипт модального окна формы
+├── process_form.php           # Обработчик формы
+├── admin.php                  # Панель администратора
+├── requests.json              # Файл для хранения обращений
+├── flood_protection.json      # Файл для защиты от флуда
+├── .htaccess                  # Настройки доступа
+├── .htpasswd                  # Файл для HTTP-аутентификации
+└── errors.log                 # Журнал ошибок
 ```
 
-### 9.2. Рекомендации по организации файлов
+### 9.2 API обработчика формы
 
-1. **Разделение по директориям**:
-   - Храните CSS файлы в директории `/css/`
-   - Храните JavaScript файлы в директории `/js/`
-   - Храните изображения в директории `/images/`
-   - Храните серверные скрипты в директории `/backend/`
+**Endpoint:** process_form.php
+**Method:** POST
+**Content-Type:** application/json
 
-2. **Безопасность**:
-   - Разместите файл `requests.json` вне корня веб-сервера или защитите его с помощью `.htaccess`
-   - Защитите админ-панель через базовую HTTP-аутентификацию
-
-3. **Оптимизация путей**:
-   - При перемещении файлов, обновите все ссылки в HTML-файлах
-   - Используйте относительные пути для внутренних ссылок
-
-### 9.3. Связь между компонентами
-
-```
-+-----------+     HTTP POST     +---------------+
-|           | ----------------> |               |
-| Форма     |                   | process_form  |
-| обратной  |                   | .php          |
-| связи     | <---------------- |               |
-|           |     JSON ответ    |               |
-+-----------+                   +---------------+
-                                        |
-                                        | Сохранение
-                                        v
-                                 +---------------+
-                                 |               |
-                                 | requests.json |
-                                 |               |
-                                 +---------------+
-                                        ^
-                                        | Чтение
-                                        |
-                                 +---------------+
-                                 |               |
-                                 |   admin.php   |
-                                 |               |
-                                 +---------------+
+**Запрос:**
+```json
+{
+  "csrf_token": "сгенерированный_токен",
+  "fullname": "Иванов Иван Иванович",
+  "phone": "+7(123)456-78-90",
+  "email": "example@mail.ru",
+  "message": "Текст обращения",
+  "consent": true,
+  "address": "ул. Примерная, д. 1",
+  "subject": "Тема обращения",
+  "request-type": "Жалоба"
+}
 ```
 
-### 9.4. Проверка целостности проекта
+**Успешный ответ (200 OK):**
+```json
+{
+  "success": true,
+  "message": "Обращение успешно отправлено",
+  "requestNumber": "ЦСО-1234/2023",
+  "requestDate": "01.01.2023"
+}
+```
 
-Перед публикацией проекта рекомендуется проверить:
+**Ошибка (4xx):**
+```json
+{
+  "success": false,
+  "message": "Описание ошибки",
+  "errors": {
+    "field_name": "Описание ошибки для конкретного поля"
+  }
+}
+```
 
-- Целостность всех файлов в структуре проекта
-- Правильность ссылок между HTML-страницами
-- Соответствие имен файлов в HTML-коде и фактических имен файлов
-- Совместимость переменных между `simple-modal.js` и `process_form.php`
-- Наличие и доступность файла `requests.json` для записи
-- Корректное отображение всех страниц в разных браузерах
-- Работоспособность формы обратной связи
+### 9.3 Жизненный цикл обращения
+
+1. **Новое** - обращение только что поступило
+2. **В обработке** - обращение принято к рассмотрению
+3. **Завершено** - работа с обращением завершена
+4. **Отклонено** - обращение отклонено (например, спам)
+
+### 9.4 Рекомендации по обслуживанию
+
+1. **Регулярное резервное копирование:**
+   ```bash
+   # Создание резервной копии данных (Linux/Mac)
+   cp requests.json requests.json.backup-$(date +%Y%m%d)
+   
+   # Ротация логов
+   if [ -f errors.log ] && [ $(stat -c %s errors.log) -gt 5242880 ]; then
+       mv errors.log errors.log.old
+       touch errors.log
+   fi
+   ```
+
+2. **Обновление системы:**
+   - Создайте резервные копии всех файлов перед обновлением
+   - Сохраните настройки из process_form.php и admin.php
+   - Замените файлы на новые версии
+   - Перенесите сохраненные настройки
+
+3. **Мониторинг:**
+   - Регулярно проверяйте журнал ошибок
+   - Следите за размером файла requests.json (делайте резервные копии при превышении 5 МБ)
+   - Проверяйте свободное место на диске
+
+---
+
+При возникновении вопросов или необходимости дополнительной поддержки обращайтесь в техническую поддержку.

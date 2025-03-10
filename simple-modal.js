@@ -29,7 +29,7 @@
     function initializeModal() {
         // Создаем модальное окно, если его еще нет
         if (!document.getElementById(CONFIG.modalId)) {
-            createSimpleModal();
+    createSimpleModal();
         }
         
         // Получаем ссылки на DOM-элементы
@@ -53,11 +53,11 @@
         const openButtons = document.querySelectorAll('a[href="feedback.html"], .feedback-link, .banner-action .btn-primary, .contact-btn');
         openButtons.forEach(button => {
             button.addEventListener('click', function(e) {
-                e.preventDefault();
-                openFeedbackModal();
-            });
+            e.preventDefault();
+            openFeedbackModal();
         });
-        
+    });
+
         // Обработчики закрытия модального окна
         if (closeBtn) {
             closeBtn.addEventListener('click', closeFeedbackModal);
@@ -90,132 +90,132 @@
      * Проверка URL на наличие параметра для открытия модального окна
      */
     function checkUrlForModalTrigger() {
-        if (window.location.search.includes('openModal=feedback')) {
-            openFeedbackModal();
+    if (window.location.search.includes('openModal=feedback')) {
+        openFeedbackModal();
             // Очищаем URL от параметров
             const cleanUrl = window.location.pathname;
             history.replaceState({}, document.title, cleanUrl);
         }
     }
-    
+
     /**
      * Создание модального окна
      */
-    function createSimpleModal() {
+function createSimpleModal() {
         console.log('Создание модального окна обратной связи');
-        // Проверяем, существует ли уже модальное окно
+    // Проверяем, существует ли уже модальное окно
         if (document.getElementById(CONFIG.modalId)) {
-            return;
-        }
-
-        // Создаем элемент модального окна
-        const modal = document.createElement('div');
-        modal.id = CONFIG.modalId;
-        modal.className = 'modal';
-        modal.innerHTML = `
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <h2>Обратная связь</h2>
-                <form id="simple-feedback-form">
-                    <div class="form-group">
-                        <label for="simple-name">Ваше имя *</label>
-                        <input type="text" id="simple-name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="simple-surname">Фамилия *</label>
-                        <input type="text" id="simple-surname" name="surname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="simple-patronymic">Отчество</label>
-                        <input type="text" id="simple-patronymic" name="patronymic">
-                    </div>
-                    <div class="form-group">
-                        <label for="simple-email">Email *</label>
-                        <input type="email" id="simple-email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="simple-phone">Телефон *</label>
-                        <input type="tel" id="simple-phone" name="phone" placeholder="+7 (___) ___-__-__" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="simple-address">Адрес</label>
-                        <input type="text" id="simple-address" name="address" placeholder="Город, улица, дом, квартира">
-                    </div>
-                    <div class="form-group">
-                        <label for="simple-subject">Тема обращения *</label>
-                        <select id="simple-subject" name="subject" required>
-                            <option value="">Выберите тему</option>
-                            <option value="question">Вопрос о услугах</option>
-                            <option value="feedback">Отзыв о работе центра</option>
-                            <option value="complaint">Жалоба</option>
-                            <option value="suggestion">Предложение</option>
-                            <option value="other">Другое</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="simple-message">Текст обращения *</label>
-                        <textarea id="simple-message" name="message" rows="5" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="simple-file">Прикрепить файл</label>
-                        <input type="file" id="simple-file" name="attachment">
-                        <small>Максимальный размер файла: 5 МБ. Разрешенные форматы: pdf, doc, docx, jpg, png.</small>
-                    </div>
-                    <div class="form-group privacy-checkbox">
-                        <input type="checkbox" id="simple-privacy" name="privacy" required>
-                        <label for="simple-privacy">Я согласен на обработку персональных данных в соответствии с <a href="privacy.html" target="_blank">Политикой конфиденциальности</a> *</label>
-                    </div>
-                    <div class="form-group privacy-checkbox">
-                        <input type="checkbox" id="simple-terms" name="terms" required>
-                        <label for="simple-terms">Я ознакомлен и согласен с <a href="#" target="_blank">Правилами подачи обращений</a> *</label>
-                    </div>
-                    <p class="form-note"><small>Поля, отмеченные * обязательны для заполнения</small></p>
-                    <button type="submit" class="btn btn-primary">Отправить обращение</button>
-                </form>
-            </div>
-        `;
-
-        // Добавляем окно в документ
-        document.body.appendChild(modal);
-
-        // Добавляем обработчик закрытия при клике вне окна
-        modal.addEventListener('click', function (e) {
-            if (e.target === modal) {
-                closeFeedbackModal();
-            }
-        });
-
-        // Добавляем обработчик для закрытия по ESC
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
-                closeFeedbackModal();
-            }
-        });
-
-        // Обработчик для кнопки закрытия
-        modal.querySelector('.close-modal').addEventListener('click', closeFeedbackModal);
-
-        // Добавляем обработчик отправки формы
-        const form = document.getElementById('simple-feedback-form');
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            setTimeout(function () {
-                alert('Ваше обращение успешно отправлено! Мы свяжемся с вами в ближайшее время.');
-                closeFeedbackModal();
-                form.reset();
-            }, 500);
-        });
+        return;
     }
-    
+
+    // Создаем элемент модального окна
+    const modal = document.createElement('div');
+        modal.id = CONFIG.modalId;
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Обратная связь</h2>
+            <form id="simple-feedback-form">
+                <div class="form-group">
+                    <label for="simple-name">Ваше имя *</label>
+                    <input type="text" id="simple-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="simple-surname">Фамилия *</label>
+                    <input type="text" id="simple-surname" name="surname" required>
+                </div>
+                <div class="form-group">
+                    <label for="simple-patronymic">Отчество</label>
+                    <input type="text" id="simple-patronymic" name="patronymic">
+                </div>
+                <div class="form-group">
+                    <label for="simple-email">Email *</label>
+                    <input type="email" id="simple-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="simple-phone">Телефон *</label>
+                    <input type="tel" id="simple-phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+                </div>
+                <div class="form-group">
+                    <label for="simple-address">Адрес</label>
+                    <input type="text" id="simple-address" name="address" placeholder="Город, улица, дом, квартира">
+                </div>
+                <div class="form-group">
+                    <label for="simple-subject">Тема обращения *</label>
+                    <select id="simple-subject" name="subject" required>
+                        <option value="">Выберите тему</option>
+                        <option value="question">Вопрос о услугах</option>
+                        <option value="feedback">Отзыв о работе центра</option>
+                        <option value="complaint">Жалоба</option>
+                        <option value="suggestion">Предложение</option>
+                        <option value="other">Другое</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="simple-message">Текст обращения *</label>
+                    <textarea id="simple-message" name="message" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="simple-file">Прикрепить файл</label>
+                    <input type="file" id="simple-file" name="attachment">
+                    <small>Максимальный размер файла: 5 МБ. Разрешенные форматы: pdf, doc, docx, jpg, png.</small>
+                </div>
+                <div class="form-group privacy-checkbox">
+                    <input type="checkbox" id="simple-privacy" name="privacy" required>
+                    <label for="simple-privacy">Я согласен на обработку персональных данных в соответствии с <a href="privacy.html" target="_blank">Политикой конфиденциальности</a> *</label>
+                </div>
+                <div class="form-group privacy-checkbox">
+                    <input type="checkbox" id="simple-terms" name="terms" required>
+                    <label for="simple-terms">Я ознакомлен и согласен с <a href="#" target="_blank">Правилами подачи обращений</a> *</label>
+                </div>
+                <p class="form-note"><small>Поля, отмеченные * обязательны для заполнения</small></p>
+                <button type="submit" class="btn btn-primary">Отправить обращение</button>
+            </form>
+        </div>
+    `;
+
+    // Добавляем окно в документ
+    document.body.appendChild(modal);
+
+    // Добавляем обработчик закрытия при клике вне окна
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            closeFeedbackModal();
+        }
+    });
+
+    // Добавляем обработчик для закрытия по ESC
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            closeFeedbackModal();
+        }
+    });
+
+    // Обработчик для кнопки закрытия
+    modal.querySelector('.close-modal').addEventListener('click', closeFeedbackModal);
+
+    // Добавляем обработчик отправки формы
+    const form = document.getElementById('simple-feedback-form');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        setTimeout(function () {
+            alert('Ваше обращение успешно отправлено! Мы свяжемся с вами в ближайшее время.');
+            closeFeedbackModal();
+            form.reset();
+        }, 500);
+    });
+}
+
     /**
      * Открытие модального окна
      */
-    function openFeedbackModal() {
+function openFeedbackModal() {
         // Сохраняем последний активный элемент для восстановления фокуса при закрытии
         lastActiveElement = document.activeElement;
         
         // Отображаем модальное окно
-        modal.style.display = 'flex';
+    modal.style.display = 'flex';
         document.body.classList.add('modal-open');
         
         // Сбрасываем форму и скрываем сообщение об успехе
@@ -248,13 +248,13 @@
     /**
      * Закрытие модального окна
      */
-    function closeFeedbackModal() {
+function closeFeedbackModal() {
         // Анимация закрытия
         modal.classList.remove('modal-visible');
         
         // Задержка для завершения анимации
         setTimeout(() => {
-            modal.style.display = 'none';
+    modal.style.display = 'none';
             document.body.classList.remove('modal-open');
             
             // Восстанавливаем фокус
@@ -285,6 +285,9 @@
         formData.forEach((value, key) => {
             formObject[key] = value;
         });
+        
+        // Добавляем CSRF-токен
+        formObject.csrf_token = "<?php echo $_SESSION['csrf_token']; ?>";
         
         // Отправка данных на сервер
         fetch('process_form.php', {
