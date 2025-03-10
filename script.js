@@ -76,11 +76,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.classList.add('grayscale-mode');
                 highContrast.style.backgroundColor = 'var(--primary-color)';
                 highContrast.style.color = 'white';
+                
+                // Дополнительная проверка для правильного отображения мобильного меню
+                if (window.innerWidth > 768) {
+                    document.querySelector('.mobile-menu-toggle').style.display = 'none';
+                }
             } else {
                 // Возвращаем обычный цветной режим
                 document.body.classList.remove('grayscale-mode');
                 highContrast.style.backgroundColor = '';
                 highContrast.style.color = '';
+                
+                // Возвращаем исходное состояние
+                if (window.innerWidth > 768) {
+                    document.querySelector('.mobile-menu-toggle').style.display = 'none';
+                } else {
+                    document.querySelector('.mobile-menu-toggle').style.display = 'block';
+                }
             }
         });
     }

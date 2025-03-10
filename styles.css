@@ -363,7 +363,7 @@ a:hover {
 }
 
 .mobile-menu-toggle {
-    display: block;
+    display: none; /* По умолчанию скрыто */
     background: none;
     border: none;
     font-size: 24px;
@@ -371,9 +371,6 @@ a:hover {
     cursor: pointer;
     padding: 10px;
     z-index: 100;
-    position: absolute;
-    left: 15px;
-    top: 10px;
 }
 
 /* Герой-секция */
@@ -930,11 +927,12 @@ section {
     }
 }
 
-@media screen and (max-width: 768px) {
-    .gold-icon {
-        width: 35px;
-        height: 35px;
-        z-index: 1001; /* Убедитесь, что иконка находится над мобильным меню */
+@media only screen and (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+        color: white;
+        position: static;
+        margin-right: auto;
     }
 }
 
@@ -1087,7 +1085,7 @@ section {
 }
 
 /* Адаптивность для больших меню */
-@media screen and (min-width: 993px) {
+@media only screen and (min-width: 993px) {
     .nav-list {
         justify-content: space-between; /* Распределяем элементы равномерно */
     }
@@ -2191,4 +2189,27 @@ body.modal-open {
 .grayscale-mode .btn-primary {
     background-color: #444 !important;
     color: white !important;
+}
+
+/* Исправляем отображение мобильного меню в черно-белом режиме */
+@media only screen and (min-width: 769px) {
+    .grayscale-mode .mobile-menu-toggle {
+        display: none !important;
+    }
+}
+
+/* Для мобильных устройств в черно-белом режиме */
+@media only screen and (max-width: 768px) {
+    .grayscale-mode .mobile-menu-toggle {
+        display: block;
+        color: black; /* Черный цвет для контраста */
+    }
+    
+    .grayscale-mode .nav-list {
+        background-color: #eee; /* Светло-серый для меню */
+    }
+    
+    .grayscale-mode .dropdown-menu {
+        background-color: #ddd; /* Чуть темнее для подменю */
+    }
 } 
