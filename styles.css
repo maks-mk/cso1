@@ -285,10 +285,16 @@ a:hover {
 
 /* Навигация */
 .main-nav {
-    background: var(--gradient-primary);
-    border-radius: 0 0 10px 10px;
-    margin: 0 15px;
+    background-color: var(--primary-color);
+    padding: 10px 0;
     position: relative;
+    z-index: 100;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav-list {
@@ -357,13 +363,17 @@ a:hover {
 }
 
 .mobile-menu-toggle {
-    display: none;
+    display: block;
     background: none;
     border: none;
-    color: white;
-    font-size: 20px;
+    font-size: 24px;
+    color: var(--primary-color);
     cursor: pointer;
-    padding: 15px;
+    padding: 10px;
+    z-index: 100;
+    position: absolute;
+    left: 15px;
+    top: 10px;
 }
 
 /* Герой-секция */
@@ -1536,72 +1546,79 @@ section {
 @media (max-width: 768px) {
     /* Исправление навигации */
     .nav-container {
-        flex-direction: column;
-        padding: 10px 0;
+        position: relative;
+        min-height: 50px;
     }
     
-    .nav-left {
-        width: 100%;
-        order: 2;
+    .main-nav {
+        position: relative;
     }
     
     .nav-list {
         display: none;
+        position: absolute;
+        left: 0;
+        top: 60px;
         width: 100%;
+        background-color: var(--primary-color);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         flex-direction: column;
-        padding-top: 10px;
+        z-index: 50;
     }
     
     .nav-list.active {
         display: flex;
     }
     
-    .nav-list li {
-        width: 100%;
-        margin: 0;
+    .main-nav .nav-container .nav-list.active {
+        display: flex !important;
     }
     
-    .nav-list li a {
-        padding: 12px 15px;
+    .nav-container {
+        position: relative;
+        min-height: 50px;
+    }
+    
+    .main-nav {
+        position: relative;
+    }
+    
+    .nav-list li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-list a {
+        padding: 15px;
         width: 100%;
         display: block;
     }
     
-    .nav-right {
-        position: absolute;
-        right: 15px;
-        top: 10px;
-    }
-    
-    /* Улучшение бургер-меню */
+    /* Стили для иконки меню */
     .mobile-menu-toggle {
-        display: flex;
-        position: absolute;
-        left: 15px;
-        top: 10px;
+        display: block;
+        color: white;
+        position: static;
+        margin-right: auto;
     }
     
-    /* Изменение выпадающих меню */
+    /* Настройка позиционирования правой части навигации */
+    .nav-right {
+        position: relative;
+        z-index: 51;
+    }
+    
+    /* Стили для подменю */
     .dropdown-menu {
         position: static;
-        width: 100%;
         display: none;
+        width: 100%;
         box-shadow: none;
-        background: #f5f5f5;
+        background-color: rgba(0, 0, 0, 0.2);
     }
     
     .dropdown.active .dropdown-menu {
         display: block;
-    }
-    
-    /* Улучшение отображения структуры */
-    .structure-image {
-        width: 100%;
-        height: auto;
-    }
-    
-    .department-item {
-        padding: 15px;
     }
 }
 

@@ -4,11 +4,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const navList = document.querySelector('.nav-list');
     const dropdowns = document.querySelectorAll('.dropdown');
 
-    if (mobileMenuToggle) {
+    if (mobileMenuToggle && navList) {
         mobileMenuToggle.addEventListener('click', function() {
             navList.classList.toggle('active');
+            console.log('Меню переключено: ' + navList.classList.contains('active'));
         });
     }
+
+    // Фикс для возможной проблемы с всплытием событий
+    document.addEventListener('click', function(e) {
+        // Закрываем меню при клике вне меню
+        if (mobileMenuToggle && navList && navList.classList.contains('active')) {
+            if (!navList.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                navList.classList.remove('active');
+            }
+        }
+    });
 
     // Улучшенная обработка выпадающих меню на мобильных устройствах
     if (window.innerWidth <= 768) {
@@ -203,5 +214,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
+    }
+
+    // Дополнительная проверка состояния меню
+    function checkMenuState() {
+        const navList = document.querySelector('.nav-list');
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        
+        if (!navList || !menuToggle) {
+            console.error("Элементы меню не найдены!");
+            return;
+        }
+        
+        console.log("Текущее состояние меню:");
+        console.log("- Видимость: " + (window.getComputedStyle(navList).display !== 'none' ? 'видимо' : 'скрыто'));
+        console.log("- Класс active: " + navList.classList.contains('active'));
+        console.log("- z-index: " + window.getComputedStyle(navList).zIndex);
+        console.log("- position: " + window.getComputedStyle(navList).position);
+    }
+
+    // Запуск проверки при загрузке страницы
+    checkMenuState();
+    
+    // Запускаем проверку при каждом клике на кнопку меню
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            setTimeout(checkMenuState, 100); // Небольшая задержка для обновления DOM
+        });
+    }
+    
+    // Явное тестирование мобильного меню
+    if (window.innerWidth <= 768) {
+        console.log("Мобильный режим активен");
     }
 }); 
