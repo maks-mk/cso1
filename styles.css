@@ -1936,4 +1936,242 @@ section {
     .modal .form-group {
         margin-bottom: 15px;
     }
+}
+
+/* Улучшенные стили для модального окна */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+#simple-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#simple-modal.modal-visible {
+    opacity: 1;
+}
+
+.modal {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+#simple-modal.modal-visible .modal {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s;
+    padding: 0;
+    line-height: 1;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.modal-close:hover, .modal-close:focus {
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.modal-body {
+    padding: 25px;
+    max-height: calc(85vh - 80px);
+    overflow-y: auto;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.required-mark {
+    color: #e74c3c;
+}
+
+.form-group input, 
+.form-group textarea, 
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus, 
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(42, 88, 133, 0.1);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.checkbox {
+    display: flex;
+    align-items: flex-start;
+}
+
+.checkbox input {
+    margin-top: 5px;
+    margin-right: 10px;
+    width: auto;
+}
+
+.error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.error.visible {
+    display: block;
+}
+
+.form-submit {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.success-message {
+    background-color: #f0f9eb;
+    border-left: 4px solid #67c23a;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.success-message h3 {
+    color: #67c23a;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+}
+
+.success-message h3 i {
+    margin-right: 10px;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .full-width {
+        grid-column: span 1;
+    }
+    
+    .modal-body {
+        padding: 15px;
+    }
+}
+
+/* Стили для черно-белого режима */
+.grayscale-mode #simple-modal {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.grayscale-mode .modal {
+    background-color: white !important;
+    color: black !important;
+    border: 2px solid black !important;
+}
+
+.grayscale-mode .modal-title,
+.grayscale-mode .form-group label,
+.grayscale-mode .success-message h3 {
+    color: black !important;
+}
+
+.grayscale-mode .success-message {
+    background-color: #f0f0f0 !important;
+    border-left: 4px solid black !important;
+}
+
+.grayscale-mode .form-group input,
+.grayscale-mode .form-group textarea,
+.grayscale-mode .form-group select {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid black !important;
+}
+
+.grayscale-mode .btn-primary {
+    background-color: #444 !important;
+    color: white !important;
 } 

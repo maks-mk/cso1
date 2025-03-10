@@ -3,10 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Обратная связь - ЦСО №1</title>
-    <meta http-equiv="refresh" content="0;url=index.html?openModal=feedback">
+    <title>Обратная связь - Центр социального обслуживания №1</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .feedback-page {
+            padding: 60px 0;
+        }
+        
+        .feedback-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .feedback-title {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .feedback-description {
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--text-light);
+        }
+        
+        .success-message {
+            display: none;
+            background-color: #e8f5e9;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .success-message h3 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        
+        .success-message i {
+            font-size: 48px;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 60px;
+        }
+        
+        .contact-card {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .contact-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .contact-card i {
+            font-size: 36px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .contact-card p {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <p>Перенаправление на главную страницу...</p>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="Логотип ЦСО №1" class="logo">
+                <div class="logo-text">
+                    <h1>Муниципальное бюджетное учреждение города Шахты</h1>
+                    <p>Центр социального обслуживания граждан пожилого возраста и инвалидов №1</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="contacts-top">
+                    <div class="phone">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+78636223768">8 (8636) 22-37-68</a>
+                    </div>
+                    <div class="email">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a>
+                    </div>
+                </div>
+                <div class="accessibility-panel">
+                    <button id="font-size-increase" title="Увеличить размер шрифта"><i class="fas fa-text-height"></i></button>
+                    <button id="high-contrast" title="Черно-белый режим"><i class="fas fa-adjust"></i></button>
+                    <button id="read-aloud" title="Читать вслух"><i class="fas fa-volume-up"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="nav-left">
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-list">
+                    <li><a href="index.html">Главная</a></li>
+                    <li class="dropdown">
+                        <a href="about.html">Об учреждении <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="documents.html">Учредительные документы</a></li>
+                            <li><a href="info.html">Основные сведения</a></li>
+                            <li><a href="founder.html">Сведения об учредителе</a></li>
+                            <li><a href="licenses.html">Лицензии</a></li>
+                            <li><a href="schedule.html">Режим и график работы</a></li>
+                            <li><a href="reports.html">Отчеты о деятельности</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="structure.html">Структура и управление <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="structure.html">Структура учреждения</a></li>
+                            <li><a href="management.html">Административное управление</a></li>
+                            <li><a href="staff.html">Руководители и специалисты</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="services.html">Услуги <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="types.html">Виды и формы</a></li>
+                            <li><a href="free.html">Бесплатные услуги</a></li>
+                            <li><a href="urgent.html">Срочные социальные услуги</a></li>
+                            <li><a href="paid.html">Платные услуги</a></li>
+                            <li><a href="conditions.html">Порядок и условия предоставления</a></li>
+                            <li><a href="tariffs.html">Утвержденные тарифы</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="programs.html">Программы <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="territorial.html">Территориальная программа</a></li>
+                            <li><a href="longterm-care.html">Система долговременного ухода</a></li>
+                            <li><a href="university.html">Университет третьего возраста</a></li>
+                            <li><a href="demography.html">Национальный проект «Демография»</a></li>
+                            <li><a href="mobile.html">Мобильная бригада</a></li>
+                            <li><a href="volunteer.html">Серебряное волонтерство</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="news.html">Новости</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <a href="feedback.html" class="feedback-link gold-icon active" title="Написать обращение">
+                    <i class="fas fa-envelope-open-text"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="feedback-page">
+            <div class="container">
+                <div class="feedback-container">
+                    <h2 class="feedback-title">Обратная связь</h2>
+                    <p class="feedback-description">Уважаемые посетители! На этой странице вы можете задать вопрос, оставить обращение, жалобу или предложение по работе нашего центра.</p>
+                    
+                    <div id="success-message" class="success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Обращение успешно отправлено!</h3>
+                        <p>Ваше обращение зарегистрировано под номером <strong id="request-number">ЦСО-XXXX/2025</strong> от <span id="request-date">XX.XX.2025</span></p>
+                        <p>Мы рассмотрим ваше обращение в ближайшее время и свяжемся с вами по указанным контактным данным.</p>
+                        <p>Благодарим за обращение в МБУ «ЦСО №1» г. Шахты!</p>
+                    </div>
+                    
+                    <div class="feedback-form">
+                        <form id="feedback-form" method="post">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="fullname">ФИО <span class="required-mark">*</span></label>
+                                    <input type="text" id="fullname" name="fullname" placeholder="ФИО" required>
+                                    <div class="error">Пожалуйста, укажите ваше ФИО</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Телефон <span class="required-mark">*</span></label>
+                                    <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
+                                    <div class="error">Укажите корректный номер телефона</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" placeholder="Email">
+                                    <div class="error">Укажите корректный email адрес</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="address">Адрес</label>
+                                    <input type="text" id="address" name="address">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="request-type">Тип обращения <span class="required-mark">*</span></label>
+                                    <select id="request-type" name="request-type" required>
+                                        <option value="">Выберите тип обращения</option>
+                                        <option value="question">Вопрос</option>
+                                        <option value="application">Заявление</option>
+                                        <option value="complaint">Жалоба</option>
+                                        <option value="suggestion">Предложение</option>
+                                        <option value="gratitude">Благодарность</option>
+                                    </select>
+                                    <div class="error">Выберите тип обращения</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="subject">Тема обращения <span class="required-mark">*</span></label>
+                                    <input type="text" id="subject" name="subject" required>
+                                    <div class="error">Укажите тему обращения</div>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="message">Текст обращения <span class="required-mark">*</span></label>
+                                    <textarea id="message" name="message" required placeholder="Сообщение"></textarea>
+                                    <div class="error">Введите текст обращения</div>
+                                </div>
+                                
+                                <div class="form-group full-width">
+                                    <label for="attach">Приложить файл</label>
+                                    <input type="file" id="attach" name="attach">
+                                    <div class="error">Максимальный размер файла - 5 МБ</div>
+                                </div>
+                                
+                                <div class="form-group checkbox full-width">
+                                    <input type="checkbox" id="consent" name="consent" required>
+                                    <label for="consent">Я даю согласие на обработку моих персональных данных в соответствии с <a href="privacy.html" target="_blank">Политикой конфиденциальности</a> <span class="required-mark">*</span></label>
+                                    <div class="error">Необходимо дать согласие на обработку персональных данных</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-submit">
+                                <button type="submit" class="btn btn-primary">Отправить обращение</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>Почтовый адрес</h3>
+                            <p>346500, г. Шахты Ростовской области, проспект Победа Революции, 100</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <i class="fas fa-phone"></i>
+                            <h3>Телефон</h3>
+                            <p><a href="tel:+78636223768">8 (8636) 22-37-68</a></p>
+                            <p>Пн-Пт с 9:00 до 18:00</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <i class="fas fa-envelope"></i>
+                            <h3>Электронная почта</h3>
+                            <p><a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>О центре</h3>
+                    <p>МБУ «Центр социального обслуживания граждан пожилого возраста и инвалидов №1» г. Шахты</p>
+                    <p>ОГРН: 1046150011684</p>
+                    <p>ИНН: 6155054416</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Услуги</h3>
+                    <ul>
+                        <li><a href="services-home.html">Социальное обслуживание на дому</a></li>
+                        <li><a href="services-day.html">Отделение дневного пребывания</a></li>
+                        <li><a href="services-urgent.html">Срочные социальные услуги</a></li>
+                        <li><a href="services-rehab.html">Реабилитационные услуги</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Документы</h3>
+                    <ul>
+                        <li><a href="documents.html">Учредительные документы</a></li>
+                        <li><a href="licenses.html">Лицензии</a></li>
+                        <li><a href="regulations.html">Нормативные документы</a></li>
+                        <li><a href="reports.html">Отчеты о деятельности</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-contacts">
+                        <li><i class="fas fa-map-marker-alt"></i> 346500, г. Шахты Ростовской области, проспект Победа Революции, 100</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+78636223768">8 (8636) 22-37-68</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:cso-1@mail.ru">cso-1@mail.ru</a></li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-odnoklassniki"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 МБУ «ЦСО №1» г. Шахты. Все права защищены.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="feedback.html" class="active">Обратная связь</a>
+                    <a href="sitemap.html">Карта сайта</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="simple-modal.js"></script>
 </body>
 </html> 

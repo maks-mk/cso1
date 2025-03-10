@@ -352,24 +352,24 @@
                     <p>Благодарим за обращение в МБУ «ЦСО №1» г. Шахты!</p>
                 </div>
                 
-                <div id="feedback-form" class="feedback-form">
-                    <form id="requestForm">
+                <div class="feedback-form">
+                    <form id="feedback-form" method="post">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="fullname">ФИО <span class="required-mark">*</span></label>
-                                <input type="text" id="fullname" name="fullname" required>
+                                <input type="text" id="fullname" name="fullname" placeholder="ФИО" required>
                                 <div class="error">Пожалуйста, укажите ваше ФИО</div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="phone">Телефон <span class="required-mark">*</span></label>
-                                <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+                                <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
                                 <div class="error">Укажите корректный номер телефона</div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email">
+                                <input type="email" id="email" name="email" placeholder="Email">
                                 <div class="error">Укажите корректный email адрес</div>
                             </div>
                             
@@ -399,7 +399,7 @@
                             
                             <div class="form-group full-width">
                                 <label for="message">Текст обращения <span class="required-mark">*</span></label>
-                                <textarea id="message" name="message" required></textarea>
+                                <textarea id="message" name="message" required placeholder="Сообщение"></textarea>
                                 <div class="error">Введите текст обращения</div>
                             </div>
                             
